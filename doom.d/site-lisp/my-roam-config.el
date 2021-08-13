@@ -23,7 +23,7 @@
   (add-hook! 'org-mode
     (map! "C-M-i" 'completion-at-point))
 
-  (org-roam-setup)
+  (org-roam-db-autosync-enable)
 
   (require 'org-roam-protocol)
 
