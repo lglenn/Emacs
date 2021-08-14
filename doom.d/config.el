@@ -93,6 +93,10 @@
   (setq evil-insert-state-cursor '("red" bar))
   (setq evil-replace-state-cursor '("red" bar))
   (setq evil-operator-state-cursor '("red" hollow)))
+
+(after! evil-snipe
+  (setq evil-snipe-scope 'buffer))
+
 (use-package! evil-surround
   :config (global-evil-surround-mode 1))
 
