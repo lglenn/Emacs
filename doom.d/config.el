@@ -90,6 +90,9 @@
 
 (add-hook! text-mode 'abbrev-mode)
 
+;; Select a different theme
+;;(setq doom-theme 'doom-solarized-light)
+
 (provide 'config)
 
 ;;; config.el ends here
