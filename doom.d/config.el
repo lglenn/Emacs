@@ -85,6 +85,9 @@
   :init
   (all-the-icons-ivy-setup))
 
+(use-package! evil-surround
+  :config (global-evil-surround-mode 1))
+
 (add-hook! text-mode 'abbrev-mode)
 
 (provide 'config)
