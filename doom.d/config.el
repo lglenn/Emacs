@@ -95,7 +95,7 @@
   (setq evil-operator-state-cursor '("red" hollow)))
 
 (after! evil-snipe
-  (setq evil-snipe-scope 'buffer))
+  (setq evil-snipe-scope 'line))
 
 (use-package! evil-surround
   :config (global-evil-surround-mode 1))
