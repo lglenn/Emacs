@@ -18,10 +18,8 @@
         "C-c n g" #'org-roam-graph
         "C-c n i" #'org-roam-node-insert
         "C-c n c" #'org-roam-capture
-        "C-c n j" #'org-roam-dailies-capture-today)
-  `
-  (add-hook! 'org-mode
-    (map! "C-M-i" 'completion-at-point))
+        "C-c n j" #'org-roam-dailies-capture-today
+        "C-M-]"   #'completion-at-point)
 
   (org-roam-db-autosync-enable)
 
