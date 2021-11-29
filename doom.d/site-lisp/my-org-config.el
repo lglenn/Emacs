@@ -17,16 +17,6 @@
   ;; Use abbrev-mode
   (add-hook! org-mode 'abbrev-mode)
 
-  ;; Disable company completion (autosuggest for English words)
-  ;; See the configuratiin section in the Company readme, found in
-  ;; .emacs.d/modules/completion/company
-  (defun zz/adjust-org-company-backends ()
-    (remove-hook 'after-change-major-mode-hook '+company-init-backends-h)
-    (setq-local company-backends nil))
-
-  (add-hook! org-mode (zz/adjust-org-company-backends))
-
-
   ;; Wrap lines
   (add-hook! org-mode 'visual-line-mode)
 
