@@ -102,11 +102,14 @@
          (food-diary-file (concat personal-directory "Diet/food_diary.org")))
     (setq org-journal-dir (concat work-directory "Journal"))
     (setq org-journal-file-type 'weekly)
-    (setq org-agenda-files (list gtd-tasks-file))
+    (setq org-agenda-files (list gtd-tasks-file gtd-tickler-file))
     (setq org-capture-templates (list
                                  (list '"t" '"Todo [inbox]" 'entry
                                        (list 'file+headline gtd-inbox-file '"Inbox")
                                        '"* TODO %^{Brief Description} %^g\n%?\nAdded: %U")
+                                 (list '"T" "Tickler" 'entry
+                                       (list 'file+headline gtd-tickler-file '"Tickler")
+                                       '"* %^{Brief Description} %^g\nSCHEDULED: %^t\n%?\nAdded: %U")
                                  (list '"p" '"Todo [projects]" 'entry
                                        (list 'file+headline gtd-tasks-file '"Projects")
                                        '"* %^{Brief Description} [/] %^g\n%?\nAdded: %U")
