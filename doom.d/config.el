@@ -65,6 +65,9 @@
 ;; Dedupe command history
 (setq history-delete-duplicates t)
 
+;; Put a clock in the modeline
+(display-time)
+
 ;;; Keybindings
 
 (map! "M-+" 'calc)
