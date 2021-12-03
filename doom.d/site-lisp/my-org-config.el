@@ -11,6 +11,9 @@
   (map! "\C-ca" 'org-agenda)
   (map! "\C-cc" 'org-capture)
 
+  ;;; Tell org how to open attachments
+  (add-to-list 'org-file-apps '("\\.docx\\'" . default))
+
   ;; Show entries from the emacs diary in agenda by default
   (setq org-agenda-include-diary t)
 
