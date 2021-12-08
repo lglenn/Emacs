@@ -14,6 +14,9 @@
   ;;; Tell org how to open attachments
   (add-to-list 'org-file-apps '("\\.docx\\'" . default))
 
+  ;;; Use org-habit for tracking habits
+  (require 'org-habit)
+
   ;; Show entries from the emacs diary in agenda by default
   (setq org-agenda-include-diary t)
 
