@@ -154,6 +154,10 @@
                                        (list 'file+headline glossary-file '"Glossary")
                                        '"** %^{Term}\n:PROPERTIES:\n:term: %\\1\n:END:\n %?"
                                        ':empty-lines '1)
+                                 (list '"h" '"Habit" 'entry
+                                       (list 'file+headline gtd-tasks-file '"Habits")
+                                       '"** TODO %^{Habit} %^g\nSCHEDULED: %^t\n:PROPERTIES:\n:STYLE: habit\n:END:\n %?"
+                                       ':empty-lines '1)
                                  (list '"c" '"Coaching Observation" 'entry
                                        (list 'file+headline coach-file '"Capture")
                                        '"** %?\n")
