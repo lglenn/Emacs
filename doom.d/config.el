@@ -68,6 +68,9 @@
 ;; Put a clock in the modeline
 (display-time)
 
+;; Battery info in modeline
+(display-battery-mode)
+
 ;;; Keybindings
 
 (map! "M-+" 'calc)
