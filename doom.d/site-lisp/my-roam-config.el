@@ -33,6 +33,14 @@
                  (slot . 0)
                  (window-width . 0.33)
                  (window-parameters . ((no-other-window . t)
-                                       (no-delete-other-windows . t))))))
+                                       (no-delete-other-windows . t)))))
+
+
+  (setq org-roam-capture-templates '(("d" "default" plain "%?"
+                                     :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+                                     :unnarrowed t)
+                                    ("g" "glossary" plain "%?"
+                                     :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: glossary\n")
+                                     :unnarrowed t))))
 
 (provide 'my-roam-config)
