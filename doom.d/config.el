@@ -80,17 +80,6 @@
 (load! "site-lisp/my-org-config")
 (load! "site-lisp/my-roam-config")
 
-(after! ivy
-  (setq ivy-use-virtual-buffers t)
-  (setq ivy-count-format "(%d/%d) ")
-  (map! "C-s" 'swiper)
-  (map! "M-x" 'counsel-M-x)
-  (map! "C-x C-f" 'counsel-find-file))
-
-(use-package! all-the-icons-ivy
-  :init
-  (all-the-icons-ivy-setup))
-
 (after! evil
   ;; SOme ideas from https://juanjoalvarez.net/posts/2014/vim-emacsevil-chaotic-migration-guide/
   (setq evil-emacs-state-cursor '("red" box))
