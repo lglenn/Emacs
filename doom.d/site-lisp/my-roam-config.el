@@ -35,6 +35,10 @@
                  (window-parameters . ((no-other-window . t)
                                        (no-delete-other-windows . t)))))
 
+  (setq org-roam-node-display-template
+        (concat "${title:80} " (propertize "${tags:20}" 'face 'org-tag))
+        org-roam-node-annotation-function
+        (lambda (node) (marginalia--time (org-roam-node-file-mtime node))))
 
   (setq org-roam-capture-templates '(("d" "default" plain "%?"
                                      :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
