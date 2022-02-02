@@ -144,7 +144,7 @@
                                        ':empty-lines '1)
                                  (list '"f" '"Feedback" 'entry
                                        (list 'file+headline feedback-file '"Feedback")
-                                       '"* %^{Person}\n:PROPERTIES:\n:person: %\\1\n:END:\n** Date: %^U\n** Feedback\n*** Situation\n  %?\n*** Behavior\n*** Impact"
+                                       '"* %^{Person}\n:PROPERTIES:\n:person: %\\1\n:END:\n** Date: %^U\n** Notes\n%?\n"
                                        ':empty-lines '1)
                                  (list '"d" '"Draft" 'entry
                                        (list 'file+headline drafts-file '"Drafts")
