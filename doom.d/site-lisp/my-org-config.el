@@ -17,8 +17,7 @@
   ;;; Use org-habit for tracking habits
   (require 'org-habit)
 
-  ;; Need to require this so links to info nodes will work.
-  ;; I don't know why.
+  ;; Enable hyperlinks to info pages
   (require 'ol-info)
 
   ;; Show entries from the emacs diary in agenda by default
