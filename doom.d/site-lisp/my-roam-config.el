@@ -41,7 +41,7 @@
         (lambda (node) (marginalia--time (org-roam-node-file-mtime node))))
 
   (setq org-roam-capture-templates '(("d" "default" plain "%?"
-                                     :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+                                     :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: ${Tags}")
                                      :unnarrowed t)
                                     ("g" "glossary" plain "%?"
                                      :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: glossary\n")
