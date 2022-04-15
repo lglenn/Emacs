@@ -176,7 +176,7 @@
 
     (setq org-default-notes-file gtd-inbox-file)
     (setq org-refile-targets
-          (let ((refile-target-files (list (cons nil '(:level . 1))
+          (let ((refile-target-files (list (cons nil '(:maxlevel . 9))
                                            (cons tasks '(:maxlevel . 3))
                                            (cons someday '(:level . 1))
                                            (cons ideas '(:level . 1))
