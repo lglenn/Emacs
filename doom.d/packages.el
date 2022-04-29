@@ -50,6 +50,11 @@
 ;(unpin! t)
 
 (package! org-roam)
+
+;;; as suggested by https://github.com/org-roam/org-roam-ui
+(unpin! org-roam)
+(package! org-roam-ui)
+
 (package! org-bullets)
 (package! all-the-icons-ivy)
 
