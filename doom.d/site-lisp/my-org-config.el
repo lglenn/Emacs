@@ -135,7 +135,7 @@
                                        ':empty-lines '1)
                                  (list '"S" '"Staff Meeting as Attendee" 'entry
                                        (list 'file+headline meeting-notes-file '"Meetings")
-                                       '"* %^{Description}\n** Date: %^U\n** Agenda\n*** My Update\n**** Operational Excellence\n**** Projects\n**** Programs\n**** Other\n** Attendees\n   - \n** Notes\n   - %? \n** To-Do's\n"
+                                       '"* %^{Meeting Leader} Staff Meeting\n** Date: %^U\n** Agenda\n*** My Update\n**** Operational Excellence\n**** Projects\n**** Programs\n**** Other\n** Attendees\n   - \n** Notes\n   - %? \n** To-Do's\n"
                                        ':empty-lines '1)
                                  (list '"o" '"One on One" 'entry
                                        (list 'file+headline meeting-notes-file '"Meetings")
