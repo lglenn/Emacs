@@ -67,6 +67,10 @@
 
 ;; Put a clock in the modeline
 (display-time)
+;; Locations for world clock
+(setq display-time-world-list '(("America/New_York" "New York")
+                                ("UTC/UTC" "UTC")
+                                ("Asia/Calcutta" "Bangalore")))
 
 ;; Battery info in modeline
 (display-battery-mode)
