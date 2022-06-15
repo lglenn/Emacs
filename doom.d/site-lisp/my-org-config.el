@@ -13,6 +13,7 @@
 
   ;;; Tell org how to open attachments
   (add-to-list 'org-file-apps '("\\.docx\\'" . default))
+  (add-to-list 'org-file-apps '("\\.xlsx\\'" . default))
 
   ;;; Use org-habit for tracking habits
   (require 'org-habit)
