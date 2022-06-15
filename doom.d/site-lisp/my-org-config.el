@@ -45,6 +45,7 @@
                         ("@work" . ?w)
                         ("@home" . ?h)
                         ("@laptop" . ?l)
+                        ("@office" . ?o)
                         ))
 
   (setq org-tag-persistent-alist org-tag-alist)
@@ -84,9 +85,10 @@
           ("x" agenda)
           ("y" agenda*)
           ("w" todo "WAITING|DELEGATED")
-          ("@" . "Special tag searches: @h: @home @l: @laptop @w: @work")
+          ("@" . "Special tag searches: @h: @home @l: @laptop @o: office @w: @work")
           ("@h" tags "+@home")
           ("@l" tags "+@laptop")
+          ("@o" tags "+@office")
           ("@w" tags "+@work")))
 
   ;; Ideas from https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html and modified
