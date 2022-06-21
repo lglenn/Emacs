@@ -1,0 +1,21 @@
+[submodule "Vale/Microsoft"]
+	path = Vale/Microsoft
+	url = https://github.com/errata-ai/Microsoft.git
+[submodule "Vale/Google"]
+	path = Vale/Google
+	url = https://github.com/errata-ai/Google.git
+[submodule "Vale/write-good"]
+	path = Vale/write-good
+	url = https://github.com/errata-ai/write-good.git
+[submodule "Vale/proselint"]
+	path = Vale/proselint
+	url = https://github.com/errata-ai/proselint.git
+[submodule "Vale/alex"]
+	path = Vale/alex
+	url = https://github.com/errata-ai/alex.git
+[submodule "Vale/readability"]
+	path = Vale/readability
+	url = https://github.com/errata-ai/readability.git
+[submodule "Vale/vale-boilerplate"]
+	path = Vale/vale-boilerplate
+	url = https://github.com/errata-ai/vale-boilerplate.git

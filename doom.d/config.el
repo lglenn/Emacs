@@ -99,6 +99,18 @@
           org-roam-ui-update-on-save t
           org-roam-ui-open-on-start t))
 
+(after! flycheck
+  (flycheck-define-checker vale
+    "A checker for prose"
+    :command ("vale" "--output" "line"
+              source)
+    :standard-input nil
+    :error-patterns
+    ((error line-start (file-name) ":" line ":" column ":" (id (one-or-more (not (any ":")))) ":" (message) line-end))
+    :modes (markdown-mode org-mode text-mode)
+    )
+  (add-to-list 'flycheck-checkers 'vale 'append))
+
 (after! evil
   ;; SOme ideas from https://juanjoalvarez.net/posts/2014/vim-emacsevil-chaotic-migration-guide/
   (setq evil-emacs-state-cursor '("red" box))
