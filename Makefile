@@ -3,7 +3,7 @@ FILES=init.el config.el packages.el site-lisp/my-org-config.el site-lisp/my-roam
 SOURCES=$(addprefix doom.d/,$(FILES))
 TARGETS=$(addprefix $(TARGET_DIR),$(FILES))
 VALE_STYLE_DIR=$(HOME)/.vale-styles/
-VALE_STYLE_SOURCES=Google proselint Microsoft readability write-good
+VALE_STYLE_SOURCES=proselint Microsoft readability write-good
 VALE_STYLES=$(addprefix $(VALE_STYLE_DIR),$(VALE_STYLE_SOURCES))
 
 ${VALE_STYLE_DIR}%: Vale/Styles/%

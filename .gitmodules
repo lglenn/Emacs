@@ -1,9 +1,6 @@
 [submodule "Vale/Microsoft"]
 	path = Vale/Styles/Microsoft
 	url = https://github.com/errata-ai/Microsoft.git
-[submodule "Vale/Google"]
-	path = Vale/Styles/Google
-	url = https://github.com/errata-ai/Google.git
 [submodule "Vale/write-good"]
 	path = Vale/Styles/write-good
 	url = https://github.com/errata-ai/write-good.git
