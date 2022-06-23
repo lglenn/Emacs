@@ -6,7 +6,7 @@ VALE_STYLE_DIR=$(HOME)/.vale-styles/
 VALE_STYLE_SOURCES=Google proselint Microsoft alex readability write-good
 VALE_STYLES=$(addprefix $(VALE_STYLE_DIR),$(VALE_STYLE_SOURCES))
 
-${VALE_STYLE_DIR}%: Vale/%
+${VALE_STYLE_DIR}%: Vale/Styles/%
 	mkdir -p $(VALE_STYLE_DIR)
 	cp -r $</$(notdir $<) $@
 
