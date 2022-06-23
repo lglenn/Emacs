@@ -10,9 +10,6 @@
 [submodule "Vale/proselint"]
 	path = Vale/Styles/proselint
 	url = https://github.com/errata-ai/proselint.git
-[submodule "Vale/alex"]
-	path = Vale/Styles/alex
-	url = https://github.com/errata-ai/alex.git
 [submodule "Vale/readability"]
 	path = Vale/Styles/readability
 	url = https://github.com/errata-ai/readability.git
