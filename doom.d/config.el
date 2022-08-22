@@ -109,7 +109,8 @@
     ((error line-start (file-name) ":" line ":" column ":" (id (one-or-more (not (any ":")))) ":" (message) line-end))
     :modes (markdown-mode org-mode text-mode)
     )
-  (add-to-list 'flycheck-checkers 'vale 'append))
+  (add-to-list 'flycheck-checkers 'vale 'append)
+  (setq flycheck-global-modes '(not org-mode)))
 
 (after! evil
   ;; SOme ideas from https://juanjoalvarez.net/posts/2014/vim-emacsevil-chaotic-migration-guide/
