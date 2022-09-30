@@ -22,9 +22,29 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
+(setq doom-font (font-spec :family "Inconsolata" :size 12)
+      doom-variable-pitch-font (font-spec :family "Gentium Book Basic" :size 14 :weight 'semi-light))
+
 (custom-set-faces!
   '(font-lock-comment-face :slant italic)
   '(font-lock-keyword-face :slant italic))
+
+;; Stolen from:
+;; - https://github.com/daviwil/emacs-from-scratch/blob/1a13fcf0dd6afb41fce71bf93c5571931999fed8/init.el
+;; - https://emacs.stackexchange.com/questions/62987/cannot-set-correct-size-for-variable-pitch-font-in-doom-emacs
+;; Ensure that anything that should be fixed-pitch in Org files appears that way
+(use-package! mixed-pitch
+              :hook (org-mode . mixed-pitch-mode)
+              :config
+              (setq mixed-pitch-set-heigth t)
+              (set-face-attribute 'variable-pitch nil)
+              (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+              (set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
+              (set-face-attribute 'org-table nil   :inherit '(shadow fixed-pitch))
+              (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+              (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+              (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+              (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
