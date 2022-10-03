@@ -119,7 +119,7 @@
                                  (list '"t" '"Todo [inbox]" 'entry
                                        (list 'file+headline gtd-inbox-file '"Inbox")
                                        '"* TODO %^{Brief Description} %^g\n%?\nAdded: %U")
-                                 (list '"T" "Tickler" 'entry
+                                 (list '"T" '"Tickler" 'entry
                                        (list 'file+headline gtd-tickler-file '"Tickler")
                                        '"* %^{Brief Description} %^g\nSCHEDULED: %^t\n%?\nAdded: %U")
                                  (list '"p" '"Todo [projects]" 'entry
