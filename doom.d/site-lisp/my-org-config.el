@@ -119,6 +119,9 @@
                                  (list '"t" '"Todo [inbox]" 'entry
                                        (list 'file+headline gtd-inbox-file '"Inbox")
                                        '"* TODO %^{Brief Description} %^g\n%?\nAdded: %U")
+                                 (list '"D" '"Discuss" 'entry
+                                       (list 'file+headline gtd-inbox-file '"Inbox")
+                                       '"* TODO Talk with %^{Person} about %^{Topic} %^g\n:PROPERTIES:\n:talks: true\n:person: %\\1\n:END:\n%?\nAdded: %U")
                                  (list '"T" '"Tickler" 'entry
                                        (list 'file+headline gtd-tickler-file '"Tickler")
                                        '"* %^{Brief Description} %^g\nSCHEDULED: %^t\n%?\nAdded: %U")
