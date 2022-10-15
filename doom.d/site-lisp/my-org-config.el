@@ -123,7 +123,7 @@
                                        '"* TODO %^{Brief Description} %^g\n:PROPERTIES:\n:created: %U\n:END:\n%?\n")
                                  (list '"D" '"Discuss" 'entry
                                        (list 'file+headline gtd-inbox-file '"Inbox")
-                                       '"* TODO Talk with %^{Person} about %^{Topic} %^g\n:PROPERTIES:\n:talks: true\n:person: %\\1\n:END:\n%?\nAdded: %U")
+                                       '"* TODO Talk with %^{Person} about %^{Topic} %^g\n:PROPERTIES:\n:created: %U\n:talks: true\n:person: %\\1\n:END:\n%?\n")
                                  (list '"T" '"Tickler" 'entry
                                        (list 'file+headline gtd-tickler-file '"Tickler")
                                        '"* %^{Brief Description} %^g\nSCHEDULED: %^t\n%?\nAdded: %U")
