@@ -132,7 +132,7 @@
                                        '"* %^{Brief Description} [/] %^g\n:PROPERTIES:\n:created: %U\n:END:\n%?\n")
                                  (list '"P" '"Todo [serial projects]" 'entry
                                        (list 'file+headline gtd-tasks-file '"Serial Projects")
-                                       '"* %^{Brief Description} [%] %^g\n** TODO %?\nAdded: %U")
+                                       '"* %^{Brief Description} [%] %^g\n:PROPERTIES:\n:created: %U\n:END:\n** TODO %?\n")
                                  (list '"m" '"Meeting" 'entry
                                        (list 'file+headline meeting-notes-file '"Meetings")
                                        '"* %^{Description}\n** Date: %^U\n** Agenda\n   - \n** Attendees\n   - \n** Notes\n   - %? \n** To-Do's\n"
