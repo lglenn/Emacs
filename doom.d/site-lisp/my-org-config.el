@@ -99,11 +99,13 @@
          (tasks "gtd.org")
          (glossary "Glossary/glossary.org")
          (coach "Coach/coach.org")
+         (time-tracking "time-tracking.org")
          (gtd-inbox-file (concat gtd-directory inbox))
          (gtd-tickler-file (concat gtd-directory tickler))
          (gtd-someday-file (concat gtd-directory someday))
          (gtd-ideas-file (concat gtd-directory ideas))
          (gtd-tasks-file (concat gtd-directory tasks))
+         (time-tracking-file (concat gtd-directory time-tracking))
          (glossary-file (concat work-directory glossary))
          (coach-file (concat personal-directory coach))
          (meeting-notes-file (concat work-directory "MeetingNotes/meetings.org"))
@@ -163,6 +165,10 @@
                                        (list 'file+headline glossary-file '"Glossary")
                                        '"** %^{Term}\n:PROPERTIES:\n:term: %\\1\n:END:\n %?"
                                        ':empty-lines '1)
+                                 (list '"C" '"Time Tracking Item" 'entry
+                                       (list 'file+headline time-tracking-file '"Time Tracking")
+                                       '"* %^{Task}\n%?\nAdded: %^U\n"
+                                       ':empty-lines '1)
                                  (list '"h" '"Habit" 'entry
                                        (list 'file+headline gtd-tasks-file '"Habits")
                                        '"** TODO %^{Habit} %^g\nSCHEDULED: %^t\n:PROPERTIES:\n:STYLE: habit\n:END:\n %?"
@@ -187,6 +193,7 @@
                                            (cons someday '(:level . 1))
                                            (cons ideas '(:level . 1))
                                            (cons tickler '(:maxlevel . 2))
+                                           (cons time-tracking '(:maxlevel . 4))
                                            (cons inbox '(:maxlevel . 2))))
 	        (prepend-directory-if-string
 	         (lambda (e)
