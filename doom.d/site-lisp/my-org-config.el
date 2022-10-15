@@ -167,7 +167,7 @@
                                        ':empty-lines '1)
                                  (list '"C" '"Time Tracking Item" 'entry
                                        (list 'file+headline time-tracking-file '"Time Tracking")
-                                       '"* %^{Task}\n%?\nAdded: %^U\n"
+                                       '"* %^{Task}\n:PROPERTIES:\n:created: %U\n:END:\n%?\n"
                                        ':empty-lines '1)
                                  (list '"h" '"Habit" 'entry
                                        (list 'file+headline gtd-tasks-file '"Habits")
