@@ -126,7 +126,7 @@
                                        '"* TODO Talk with %^{Person} about %^{Topic} %^g\n:PROPERTIES:\n:created: %U\n:talks: true\n:person: %\\1\n:END:\n%?\n")
                                  (list '"T" '"Tickler" 'entry
                                        (list 'file+headline gtd-tickler-file '"Tickler")
-                                       '"* %^{Brief Description} %^g\nSCHEDULED: %^t\n%?\nAdded: %U")
+                                       '"* %^{Brief Description} %^g\n:PROPERTIES:\n:created: %U\n:END:\nSCHEDULED: %^t\n%?\n")
                                  (list '"p" '"Todo [projects]" 'entry
                                        (list 'file+headline gtd-tasks-file '"Projects")
                                        '"* %^{Brief Description} [/] %^g\n%?\nAdded: %U")
