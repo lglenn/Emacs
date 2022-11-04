@@ -106,6 +106,7 @@
          (gtd-ideas-file (concat gtd-directory ideas))
          (gtd-tasks-file (concat gtd-directory tasks))
          (time-tracking-file (concat gtd-directory time-tracking))
+         (incidents-file time-tracking-file)
          (glossary-file (concat work-directory glossary))
          (coach-file (concat personal-directory coach))
          (meeting-notes-file (concat work-directory "MeetingNotes/meetings.org"))
@@ -118,6 +119,7 @@
     (setq org-journal-file-type 'weekly)
     (setq org-agenda-files (list gtd-tasks-file gtd-tickler-file))
     (setq org-capture-templates (list
+
                                  (list '"t" '"Todo [inbox]" 'entry
                                        (list 'file+headline gtd-inbox-file '"Inbox")
                                        '"* TODO %^{Brief Description} %^g\n:PROPERTIES:\n:created: %U\n:END:\n%?\n")
@@ -133,6 +135,10 @@
                                  (list '"P" '"Todo [serial projects]" 'entry
                                        (list 'file+headline gtd-tasks-file '"Serial Projects")
                                        '"* %^{Brief Description} [%] %^g\n:PROPERTIES:\n:created: %U\n:END:\n** TODO %?\n")
+                                 (list '"I" '"Incident" 'entry
+                                       (list 'file+olp incidents-file '"Time Tracking" '"Operational Excellence" '"Incidents")
+                                        '"* %^{Incident}\n:PROPERTIES:\n:created: %U\n%^{system}p\n:END:\n** Timeline\n** Description\n%?\n** Resolution\n** Causes\n** Corrective Actions\n** To-Do's"
+                                       ':empty-lines '1)
                                  (list '"m" '"Meeting" 'entry
                                        (list 'file+headline meeting-notes-file '"Meetings")
                                        '"* %^{Description}\n** Date: %^U\n** Agenda\n   - \n** Attendees\n   - \n** Notes\n   - %? \n** To-Do's\n"
