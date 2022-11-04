@@ -133,6 +133,10 @@
                                  (list '"P" '"Todo [serial projects]" 'entry
                                        (list 'file+headline gtd-tasks-file '"Serial Projects")
                                        '"* %^{Brief Description} [%] %^g\n:PROPERTIES:\n:created: %U\n:END:\n** TODO %?\n")
+                                 (list '"I" '"Incident" 'entry
+                                       (list 'file+olp incidents-file '"Time Tracking" '"Operational Excellence" '"Incidents")
+                                        '"* %^{Incident}\n:PROPERTIES:\n:created: %U\n%^{system}p\n:END:\n** Timeline\n** Description\n%?\n** Resolution\n** Causes\n** Corrective Actions\n** To-Do's"
+                                       ':empty-lines '1)
                                  (list '"m" '"Meeting" 'entry
                                        (list 'file+headline meeting-notes-file '"Meetings")
                                        '"* %^{Description}\n** Date: %^U\n** Agenda\n   - \n** Attendees\n   - \n** Notes\n   - %? \n** To-Do's\n"
