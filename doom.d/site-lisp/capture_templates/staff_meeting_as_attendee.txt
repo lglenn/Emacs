@@ -1,0 +1,13 @@
+* %^{Meeting Leader} Staff Meeting
+** Date: %^U
+** Agenda
+*** My Update
+**** Operational Excellence
+**** Projects
+**** Programs
+**** Other
+** Attendees
+   -
+** Notes
+   - %?
+** To-Do's

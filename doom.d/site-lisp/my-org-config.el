@@ -180,7 +180,7 @@
                                        ':empty-lines '1)
                                  (list '"S" '"Staff Meeting as Attendee" 'entry
                                        (list 'file+headline meeting-notes-file '"Meetings")
-                                       '"* %^{Meeting Leader} Staff Meeting\n** Date: %^U\n** Agenda\n*** My Update\n**** Operational Excellence\n**** Projects\n**** Programs\n**** Other\n** Attendees\n   - \n** Notes\n   - %? \n** To-Do's\n"
+                                       '"%[capture_templates/staff_meeeting_as_attendee.txt]"
                                        ':empty-lines '1)
                                  (list '"t" '"Todo [inbox]" 'entry
                                        (list 'file+headline gtd-inbox-file '"Inbox")
