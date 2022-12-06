@@ -114,6 +114,7 @@
          (feedback-file (concat work-directory "Feedback/feedback.org"))
          (drafts-file (concat work-directory "Drafts/drafts.org"))
          (journal-file (concat personal-directory "Journal/journal.org"))
+         (daily-summary-file (concat personal-directory "Journal/daily_summaries.org"))
          (food-diary-file (concat personal-directory "Diet/food_diary.org")))
     (setq org-journal-dir (concat work-directory "Journal"))
     (setq org-journal-file-type 'weekly)
@@ -187,6 +188,9 @@
                                  (list '"T" '"Tickler" 'entry
                                        (list 'file+headline gtd-tickler-file '"Tickler")
                                        '"* %^{Brief Description} %^g\n:PROPERTIES:\n:created: %U\n:END:\nSCHEDULED: %^t\n%?\n")
+                                 (list '"u" '"Daily Summary" 'entry
+                                       (list 'file+olp+datetree daily-summary-file)
+                                       '"%[capture_templates/daily_summary.txt]" :tree-type 'week)
                                  (list '"w" '"Film and TV" 'entry
                                        (list 'file+headline gtd-someday-file '"Movies")
                                        '"** %?\n")))
