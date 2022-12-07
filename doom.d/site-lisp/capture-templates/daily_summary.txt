@@ -7,11 +7,12 @@ CLOCK: %^{Clock In Time}U--%^{Clock Out Time}U
 :END:
 
 ** Key Meetings
-** Accomplishments
 ** Observations
+** Accomplishments
 ** Challenges
 ** Feel Good Moments
 ** Stressors
+** Personal
 ** External Factors
 - Sleep
 - Food
