@@ -115,6 +115,7 @@
          (drafts-file (concat work-directory "Drafts/drafts.org"))
          (journal-file (concat personal-directory "Journal/journal.org"))
          (daily-summary-file (concat personal-directory "Journal/daily_summaries.org"))
+         (capture-templates-dir "capture-templates/")
          (food-diary-file (concat personal-directory "Diet/food_diary.org")))
     (setq org-journal-dir (concat work-directory "Journal"))
     (setq org-journal-file-type 'weekly)
@@ -180,8 +181,7 @@
                                        ':empty-lines '1)
                                  (list '"S" '"Staff Meeting as Attendee" 'entry
                                        (list 'file+headline meeting-notes-file '"Meetings")
-                                       '"%[capture_templates/staff_meeeting_as_attendee.txt]"
-                                       ':empty-lines '1)
+                                       (list 'file (concat capture-templates-dir "staff_meeting_as_attendee.txt")) ':empty-lines '1)
                                  (list '"t" '"Todo [inbox]" 'entry
                                        (list 'file+headline gtd-inbox-file '"Inbox")
                                        '"* TODO %^{Brief Description} %^g\n:PROPERTIES:\n:created: %U\n:END:\n%?\n")
@@ -190,7 +190,7 @@
                                        '"* %^{Brief Description} %^g\n:PROPERTIES:\n:created: %U\n:END:\nSCHEDULED: %^t\n%?\n")
                                  (list '"u" '"Daily Summary" 'entry
                                        (list 'file+olp+datetree daily-summary-file)
-                                       '"%[capture_templates/daily_summary.txt]" :tree-type 'week)
+                                       (list 'file (concat capture-templates-dir "daily_summary.txt")) :tree-type 'week)
                                  (list '"w" '"Film and TV" 'entry
                                        (list 'file+headline gtd-someday-file '"Movies")
                                        '"** %?\n")))

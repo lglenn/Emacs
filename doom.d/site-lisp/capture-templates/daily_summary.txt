@@ -1,0 +1,18 @@
+* Daily Summary for %<%a %b %-d>
+:PROPERTIES:
+:created: %U
+:END:
+:LOGBOOK:
+CLOCK: %^{Clock In Time}U--%^{Clock Out Time}U
+:END:
+
+** Key Meetings
+** Accomplishments
+** Observations
+** Challenges
+** Feel Good Moments
+** Stressors
+** External Factors
+- Sleep
+- Food
+- Drink
