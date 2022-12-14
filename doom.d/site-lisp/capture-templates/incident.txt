@@ -1,0 +1,14 @@
+* %^{Incident}
+:PROPERTIES:
+:system: %^{System}
+:date: %^{Date}u
+:END:
+
+** Timeline
+** Description
+%?
+** Resolution
+** Causes
+** Corrective Actions
+** To-Do's
+** References

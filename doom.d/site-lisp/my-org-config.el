@@ -155,9 +155,8 @@
                                        '"* %^{Candidate Name}\n** Date: %^U\n** Notes\n  - %?"
                                        ':empty-lines '1)
                                  (list '"I" '"Incident" 'entry
-                                       (list 'file+olp incidents-file '"Time Tracking" '"Activities" '"Operational Excellence" '"Incidents")
-                                       '"* %^{Incident}\n:PROPERTIES:\n:created: %U\n%^{system}p\n:END:\n** Timeline\n** Description\n%?\n** Resolution\n** Causes\n** Corrective Actions\n** To-Do's"
-                                       ':empty-lines '1)
+                                       (list 'file+olp incidents-file '"Time Tracking" '"Operational Excellence" '"Incidents")
+                                       (list 'file (concat capture-templates-dir "incident.txt")) ':empty-lines '1)
                                  (list '"j" '"Journal Entry" 'entry
                                        (list 'file+olp+datetree journal-file)
                                        '"** %<%k:%M %p>\n%?\n" :tree-type 'week)
