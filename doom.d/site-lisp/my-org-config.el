@@ -187,7 +187,7 @@
                                  (list '"T" '"Tickler" 'entry
                                        (list 'file+headline gtd-tickler-file '"Tickler")
                                        '"* %^{Brief Description} %^g\n:PROPERTIES:\n:created: %U\n:END:\nSCHEDULED: %^t\n%?\n")
-                                 (list '"u" '"Daily Summary" 'entry
+                                 (list '"u" '"Daily Summary (prefix with C-1 to force a date other than today)" 'entry
                                        (list 'file+olp+datetree daily-summary-file)
                                        (list 'file (concat capture-templates-dir "daily_summary.txt")) :tree-type 'week)
                                  (list '"w" '"Film and TV" 'entry
