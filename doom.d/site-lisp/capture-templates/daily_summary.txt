@@ -6,6 +6,7 @@
 CLOCK: %^{Clock In Time}U--%^{Clock Out Time}U
 :END:
 
+** Summary
 ** Key Meetings
 ** Observations
 ** Accomplishments
