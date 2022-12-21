@@ -177,7 +177,7 @@
 
                                   ("I" "Incident" entry
                                    (file+olp ,incidents-file "Time Tracking" "Operational Excellence" "Incidents")
-                                   (file ,(template-file "incident.txt")) :empty-lines 1)
+                                   (file ,(template-file "incident.org")) :empty-lines 1)
 
                                   ("j" "Journal Entry" entry
                                    (file+olp+datetree ,journal-file)
@@ -208,7 +208,7 @@
 
                                   ("S" "Staff Meeting as Attendee" entry
                                    (file+headline ,meeting-notes-file "Meetings")
-                                   (file ,(template-file "staff_meeting_as_attendee.txt")) :empty-lines 1)
+                                   (file ,(template-file "staff_meeting_as_attendee.org")) :empty-lines 1)
 
                                   ("t" "Todo" entry
                                    (file+headline ,gtd-inbox-file "Inbox")
@@ -220,7 +220,7 @@
 
                                   ("u" "Daily Summary (prefix with C-1 to force a date other than today)" entry
                                    (file+olp+datetree ,daily-summary-file)
-                                   (file ,(template-file "daily_summary.txt")) :tree-type week)
+                                   (file ,(template-file "daily_summary.org")) :tree-type week)
 
                                   ("w" "Film and TV" entry
                                    (file+headline ,gtd-someday-file "Movies")
