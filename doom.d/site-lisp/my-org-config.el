@@ -120,6 +120,18 @@
     (setq org-journal-dir (concat work-directory "Journal"))
     (setq org-journal-file-type 'weekly)
     (setq org-agenda-files (list gtd-tasks-file gtd-tickler-file))
+
+    ;; Call this from a capture template using the %(EXP) expansion to get a timestamp that
+    ;; always reflects the current time.
+    ;; If you invoke a capture template with the C-1 prefix to select a date other than today
+    ;; in a datetree entry, all expansions such as %u or %<FORMAT> will use the time you selected,
+    ;; not now. This function allows you to have, for example, a :created: property that always
+    ;; reflects the time the entry was created. For some reason, not all date time format
+    ;; conversions (such as %a) work properly when invoked from inside a template. Calling this
+    ;; function works though.
+    (defun current-time-timestamp ()
+      (format-time-string "%Y-%m-%d %a %H:%M"))
+
     (setq org-capture-templates (list
                                  (list '"c" '"Coaching Observation" 'entry
                                        (list 'file+headline coach-file '"Capture")

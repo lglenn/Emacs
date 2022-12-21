@@ -1,6 +1,7 @@
 * Daily Summary for %<%a %b %-d>
 :PROPERTIES:
-:created: %U
+:created: [%(current-time-timestamp)]
+:summary-for: %u
 :END:
 :LOGBOOK:
 CLOCK: %^{Clock In Time}U--%^{Clock Out Time}U
