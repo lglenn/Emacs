@@ -115,7 +115,7 @@
          (drafts-file (concat work-directory "Drafts/drafts.org"))
          (journal-file (concat personal-directory "Journal/journal.org"))
          (daily-summary-file (concat personal-directory "Journal/daily_summaries.org"))
-         (capture-templates-dir "capture-templates/")
+         (capture-templates-dir (concat personal-directory "capture-templates/"))
          (food-diary-file (concat personal-directory "Diet/food_diary.org")))
     (setq org-journal-dir (concat work-directory "Journal"))
     (setq org-journal-file-type 'weekly)
@@ -132,79 +132,99 @@
     (defun current-time-timestamp ()
       (format-time-string "%Y-%m-%d %a %H:%M"))
 
-    (setq org-capture-templates (list
-                                 (list '"c" '"Coaching Observation" 'entry
-                                       (list 'file+headline coach-file '"Capture")
-                                       '"** %?\n")
-                                 (list '"C" '"Time Tracking Item" 'entry
-                                       (list 'file+headline time-tracking-file '"Time Tracking")
-                                       '"* %^{Task}\n:PROPERTIES:\n:created: %U\n:END:\n%?\n"
-                                       ':empty-lines '1)
-                                 (list '"d" '"Draft" 'entry
-                                       (list 'file+headline drafts-file '"Drafts")
-                                       '"* %^{Subject}\n** Date: %^U\n** Notes\n%?"
-                                       ':empty-lines '1)
-                                 (list '"D" '"Discuss" 'entry
-                                       (list 'file+headline gtd-inbox-file '"Inbox")
-                                       '"* TODO Talk with %^{Person} about %^{Topic} %^g\n:PROPERTIES:\n:created: %U\n:talks: true\n:person: %\\1\n:END:\n%?\n")
-                                 (list '"f" '"Feedback" 'entry
-                                       (list 'file+headline feedback-file '"Feedback")
-                                       '"* %^{Person}\n:PROPERTIES:\n:person: %\\1\n:END:\n** Date: %^U\n** Notes\n%?\n"
-                                       ':empty-lines '1)
-                                 (list '"F" '"Food Diary (to select a date, invoke org-capture (C-c c) with a C-1 prefix)" 'entry
-                                       (list 'file+olp+datetree food-diary-file)
-                                       '"** %^{Meal?}\n   - %?\n")
-                                 (list '"g" '"Glossary" 'entry
-                                       (list 'file+headline glossary-file '"Glossary")
-                                       '"** %^{Term}\n:PROPERTIES:\n:term: %\\1\n:END:\n %?"
-                                       ':empty-lines '1)
-                                 (list '"h" '"Habit" 'entry
-                                       (list 'file+headline gtd-tasks-file '"Habits")
-                                       '"** TODO %^{Habit} %^g\nSCHEDULED: %^t\n:PROPERTIES:\n:STYLE: habit\n:END:\n %?"
-                                       ':empty-lines '1)
-                                 (list '"i" '"Interview" 'entry
-                                       (list 'file+headline interviews-file '"Interviews")
-                                       '"* %^{Candidate Name}\n** Date: %^U\n** Notes\n  - %?"
-                                       ':empty-lines '1)
-                                 (list '"I" '"Incident" 'entry
-                                       (list 'file+olp incidents-file '"Time Tracking" '"Operational Excellence" '"Incidents")
-                                       (list 'file (concat capture-templates-dir "incident.txt")) ':empty-lines '1)
-                                 (list '"j" '"Journal Entry" 'entry
-                                       (list 'file+olp+datetree journal-file)
-                                       '"** %<%k:%M %p>\n%?\n" :tree-type 'week)
-                                 (list '"m" '"Meeting" 'entry
-                                       (list 'file+headline meeting-notes-file '"Meetings")
-                                       '"* %^{Description}\n** Date: %^U\n** Agenda\n   - \n** Attendees\n   - \n** Notes\n   - %? \n** To-Do's\n"
-                                       ':empty-lines '1)
-                                 (list '"o" '"One on One" 'entry
-                                       (list 'file+headline meeting-notes-file '"Meetings")
-                                       '"* 1:1: %^{Description}\n** Date: %^U\n** Agenda\n   - %? \n** Notes\n   -  \n** To-Do's\n"
-                                       ':empty-lines '1)
-                                 (list '"p" '"Todo [projects]" 'entry
-                                       (list 'file+headline gtd-tasks-file '"Projects")
-                                       '"* %^{Brief Description} [/] %^g\n:PROPERTIES:\n:created: %U\n:END:\n%?\n")
-                                 (list '"P" '"Todo [serial projects]" 'entry
-                                       (list 'file+headline gtd-tasks-file '"Serial Projects")
-                                       '"* %^{Brief Description} [%] %^g\n:PROPERTIES:\n:created: %U\n:END:\n** TODO %?\n")
-                                 (list '"s" '"My Staff Meeting" 'entry
-                                       (list 'file+headline meeting-notes-file '"Meetings")
-                                       '"* Staff Meeting\n** Date: %^U\n** Agenda\n   - \n** Attendees\n   - \n** Notes\n   - %? \n** To-Do's\n"
-                                       ':empty-lines '1)
-                                 (list '"S" '"Staff Meeting as Attendee" 'entry
-                                       (list 'file+headline meeting-notes-file '"Meetings")
-                                       (list 'file (concat capture-templates-dir "staff_meeting_as_attendee.txt")) ':empty-lines '1)
-                                 (list '"t" '"Todo [inbox]" 'entry
-                                       (list 'file+headline gtd-inbox-file '"Inbox")
-                                       '"* TODO %^{Brief Description} %^g\n:PROPERTIES:\n:created: %U\n:END:\n%?\n")
-                                 (list '"T" '"Tickler" 'entry
-                                       (list 'file+headline gtd-tickler-file '"Tickler")
-                                       '"* %^{Brief Description} %^g\n:PROPERTIES:\n:created: %U\n:END:\nSCHEDULED: %^t\n%?\n")
-                                 (list '"u" '"Daily Summary (prefix with C-1 to force a date other than today)" 'entry
-                                       (list 'file+olp+datetree daily-summary-file)
-                                       (list 'file (concat capture-templates-dir "daily_summary.txt")) :tree-type 'week)
-                                 (list '"w" '"Film and TV" 'entry
-                                       (list 'file+headline gtd-someday-file '"Movies")
-                                       '"** %?\n")))
+    (defun template-file (filename)
+      (concat capture-templates-dir filename))
+
+    ;; Note the use of backquote and commas here
+    ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Backquote.html
+    (setq org-capture-templates `(
+
+                                  ("c" "Coaching Observation" entry (file+headline ,coach-file "Capture") "** %?\n")
+
+                                  ("C" "Time Tracking Item" entry (file+headline ,time-tracking-file "Time Tracking")
+                                   "* %^{Task}\n:PROPERTIES:\n:created: %U\n:END:\n%?\n" :empty-lines 1)
+
+                                  ("d" "Draft" entry (file+headline ,drafts-file "Drafts")
+                                   "* %^{Subject}\n** Date: %^U\n** Notes\n%?" :empty-lines 1)
+
+                                  ("D" "Discuss" entry
+                                   (file+headline ,gtd-inbox-file "Inbox")
+                                   "* TODO Talk with %^{Person} about %^{Topic} %^g\n:PROPERTIES:\n:created: %U\n:talks: true\n:person: %\\1\n:END:\n%?\n")
+
+                                  ("f" "Feedback" entry
+                                   (file+headline ,feedback-file "Feedback")
+                                   "* %^{Person}\n:PROPERTIES:\n:person: %\\1\n:END:\n** Date: %^U\n** Notes\n%?\n"
+                                   :empty-lines 1)
+
+                                  ("F" "Food Diary (to select a date, invoke org-capture (C-c c) with a C-1 prefix)" entry
+                                   (file+olp+datetree ,food-diary-file)
+                                   "** %^{Meal?}\n   - %?\n")
+
+                                  ("g" "Glossary" entry
+                                   (file+headline ,glossary-file "Glossary")
+                                   "** %^{Term}\n:PROPERTIES:\n:term: %\\1\n:END:\n %?"
+                                   :empty-lines 1)
+
+                                  ("h" "Habit" entry
+                                   (file+headline ,gtd-tasks-file "Habits")
+                                   "** TODO %^{Habit} %^g\nSCHEDULED: %^t\n:PROPERTIES:\n:STYLE: habit\n:END:\n %?"
+                                   :empty-lines 1)
+
+                                  ("i" "Interview" entry
+                                   (file+headline ,interviews-file "Interviews")
+                                   "* %^{Candidate Name}\n** Date: %^U\n** Notes\n  - %?"
+                                   :empty-lines 1)
+
+                                  ("I" "Incident" entry
+                                   (file+olp ,incidents-file "Time Tracking" "Operational Excellence" "Incidents")
+                                   (file ,(template-file "incident.txt")) :empty-lines 1)
+
+                                  ("j" "Journal Entry" entry
+                                   (file+olp+datetree ,journal-file)
+                                   "** %<%k:%M %p>\n%?\n" :tree-type week)
+
+                                  ("m" "Meeting" entry
+                                   (file+headline ,meeting-notes-file "Meetings")
+                                   "* %^{Description}\n** Date: %^U\n** Agenda\n   - \n** Attendees\n   - \n** Notes\n   - %? \n** To-Dos\n"
+                                   :empty-lines 1)
+
+                                  ("o" "One on One" entry
+                                   (file+headline ,meeting-notes-file "Meetings")
+                                   "* 1:1: %^{Description}\n** Date: %^U\n** Agenda\n   - %? \n** Notes\n   -  \n** To-Dos\n"
+                                   :empty-lines 1)
+
+                                  ("p" "Todo [projects]" entry
+                                   (file+headline ,gtd-tasks-file "Projects")
+                                   "* %^{Brief Description} [/] %^g\n:PROPERTIES:\n:created: %U\n:END:\n%?\n")
+
+                                  ("P" "Todo [serial projects]" entry
+                                   (file+headline ,gtd-tasks-file "Serial Projects")
+                                   "* %^{Brief Description} [%] %^g\n:PROPERTIES:\n:created: %U\n:END:\n** TODO %?\n")
+
+                                  ("s" "My Staff Meeting" entry
+                                   (file+headline ,meeting-notes-file "Meetings")
+                                   "* Staff Meeting\n** Date: %^U\n** Agenda\n   - \n** Attendees\n   - \n** Notes\n   - %? \n** To-Dos\n"
+                                   :empty-lines 1)
+
+                                  ("S" "Staff Meeting as Attendee" entry
+                                   (file+headline ,meeting-notes-file "Meetings")
+                                   (file ,(template-file "staff_meeting_as_attendee.txt")) :empty-lines 1)
+
+                                  ("t" "Todo [inbox]" entry
+                                   (file+headline ,gtd-inbox-file "Inbox")
+                                   "* TODO %^{Brief Description} %^g\n:PROPERTIES:\n:created: %U\n:END:\n%?\n")
+
+                                  ("T" "Tickler" entry
+                                   (file+headline ,gtd-tickler-file "Tickler")
+                                   "* %^{Brief Description} %^g\n:PROPERTIES:\n:created: %U\n:END:\nSCHEDULED: %^t\n%?\n")
+
+                                  ("u" "Daily Summary (prefix with C-1 to force a date other than today)" entry
+                                   (file+olp+datetree ,daily-summary-file)
+                                   (file ,(template-file "daily_summary.txt")) :tree-type week)
+
+                                  ("w" "Film and TV" entry
+                                   (file+headline ,gtd-someday-file "Movies")
+                                   "** %?\n")))
 
     (setq org-default-notes-file gtd-inbox-file)
     (setq org-refile-targets
@@ -225,3 +245,4 @@
             (mapcar prepend-directory-if-string refile-target-files)))))
 
   (provide 'my-org-config)
+;;; my-org.config.el ends here
