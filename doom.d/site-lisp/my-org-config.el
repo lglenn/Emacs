@@ -210,9 +210,9 @@
                                    (file+headline ,meeting-notes-file "Meetings")
                                    (file ,(template-file "staff_meeting_as_attendee.txt")) :empty-lines 1)
 
-                                  ("t" "Todo [inbox]" entry
+                                  ("t" "Todo" entry
                                    (file+headline ,gtd-inbox-file "Inbox")
-                                   "* TODO %^{Brief Description} %^g\n:PROPERTIES:\n:created: %U\n:END:\n%?\n")
+                                   (file ,(template-file "todo.org")))
 
                                   ("T" "Tickler" entry
                                    (file+headline ,gtd-tickler-file "Tickler")

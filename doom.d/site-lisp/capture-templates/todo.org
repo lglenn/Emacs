@@ -1,0 +1,6 @@
+* TODO %^{Brief Description} %^g
+:PROPERTIES:
+:created: %U
+:END:
+
+%?
