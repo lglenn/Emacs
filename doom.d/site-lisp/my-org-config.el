@@ -11,6 +11,9 @@
   (map! "\C-ca" 'org-agenda)
   (map! "\C-cc" 'org-capture)
 
+  ;;; Blinking cursor is nice
+  (blink-cursor-mode)
+
   ;;; Tell org how to open attachments
   (add-to-list 'org-file-apps '("\\.docx\\'" . default))
   (add-to-list 'org-file-apps '("\\.xlsx\\'" . default))
