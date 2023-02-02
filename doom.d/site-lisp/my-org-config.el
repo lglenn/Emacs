@@ -18,6 +18,9 @@
   (add-to-list 'org-file-apps '("\\.docx\\'" . default))
   (add-to-list 'org-file-apps '("\\.xlsx\\'" . default))
 
+  ;; The format for durations (e.g. in clock reports)
+  (setq org-duration-format 'h:mm)
+
   ;;; Use org-habit for tracking habits
   (require 'org-habit)
 
