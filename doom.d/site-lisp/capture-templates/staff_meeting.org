@@ -1,0 +1,9 @@
+* My Staff Meeting on %<%Y-%m-%d>
+** Date: %^U
+** Agenda
+-
+** Attendees
+-
+** Notes
+- %?
+** To-Dos

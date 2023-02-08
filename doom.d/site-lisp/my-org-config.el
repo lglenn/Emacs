@@ -209,8 +209,7 @@
 
                                   ("s" "My Staff Meeting" entry
                                    (file+headline ,meeting-notes-file "Meetings")
-                                   "* Staff Meeting\n** Date: %^U\n** Agenda\n   - \n** Attendees\n   - \n** Notes\n   - %? \n** To-Dos\n"
-                                   :empty-lines 1)
+                                   (file ,(template-file "staff_meeting.org")) :empty-lines 1)
 
                                   ("S" "Staff Meeting as Attendee" entry
                                    (file+headline ,meeting-notes-file "Meetings")
