@@ -44,3 +44,6 @@ vale: $(HOME)/.vale.ini $(VALE_STYLE_DIR)Vocab $(VALE_STYLES)
 vale-clean:
 	rm -rf $(VALE_STYLE_DIR)
 	rm $(HOME)/.vale.ini
+
+run:
+	emacs

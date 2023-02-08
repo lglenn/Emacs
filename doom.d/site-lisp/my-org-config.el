@@ -21,6 +21,9 @@
   ;; The format for durations (e.g. in clock reports)
   (setq org-duration-format 'h:mm)
 
+  ;; Generate uuid's for links so you have uniqueness
+  (setq org-id-link-to-org-use-id t)
+
   ;;; Use org-habit for tracking habits
   (require 'org-habit)
 
