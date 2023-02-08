@@ -1,4 +1,4 @@
-* My Staff Meeting on %<%Y-%m-%d>
+* My Staff Meeting
 ** Date: %^U
 ** Agenda
 -
