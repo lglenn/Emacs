@@ -55,6 +55,7 @@
                         ("@home" . ?h)
                         ("@laptop" . ?l)
                         ("@office" . ?o)
+                        ("@school" . ?s)
                         ))
 
   (setq org-tag-persistent-alist org-tag-alist)
@@ -90,6 +91,7 @@
           ("np" "Personal agenda and TODOs"
            ((agenda "") (tags-todo "@home") (tags-todo "@laptop"))
            ((org-agenda-skip-function '(org-agenda-skip-subtree-if 'notregexp ":@\\(home\\|laptop\\):"))))
+          ("ns" "Agenda and school-related TODOs" ((agenda "") (tags "@school")))
           ("p" "Agenda for items with non-default priority (A or C)" ((agenda "") (alltodo "")) ((org-agenda-skip-function 'skip-no-priority)))
           ("x" agenda)
           ("y" agenda*)
