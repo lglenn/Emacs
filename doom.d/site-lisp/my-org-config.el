@@ -156,15 +156,17 @@
                                   ("C" "Time Tracking Item" entry (file+headline ,time-tracking-file "Time Tracking")
                                    "* %^{Task}\n:PROPERTIES:\n:created: %U\n:END:\n%?\n" :empty-lines 1)
 
-                                  ("d" "Draft" entry (file+headline ,drafts-file "Drafts")
-                                   "* %^{Subject}\n** Date: %^U\n** Notes\n%?" :empty-lines 1)
+                                  ("d" "Draft" entry
+                                   (file+headline ,drafts-file "Drafts")
+                                   (file ,(template-file "draft.org")) :empty-lines 1)
 
                                   ("D" "Discuss" entry
                                    (file+headline ,gtd-inbox-file "Inbox")
                                    "* TODO Talk with %^{Person} about %^{Topic} %^g\n:PROPERTIES:\n:created: %U\n:talks: true\n:person: %\\1\n:END:\n%?\n")
 
-                                  ("e" "Personal Draft (draft up something non-work-related)" entry (file+headline ,personal-drafts-file "Drafts")
-                                   "* %^{Subject}\n** Date: %^U\n** Notes\n%?" :empty-lines 1)
+                                  ("e" "Personal Draft (draft up something non-work-related)" entry
+                                   (file+headline ,personal-drafts-file "Personal Drafts")
+                                   (file ,(template-file "personal_draft.org")) :empty-lines 1)
 
                                   ("f" "Feedback" entry
                                    (file+headline ,feedback-file "Feedback")

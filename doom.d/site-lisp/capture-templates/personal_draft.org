@@ -1,0 +1,4 @@
+* %^{Subject}
+** Date: %^U
+** Notes
+%?

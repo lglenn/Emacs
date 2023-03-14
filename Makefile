@@ -7,7 +7,7 @@ VALE_STYLE_SOURCES=proselint Microsoft readability write-good
 VALE_STYLES=$(addprefix $(VALE_STYLE_DIR),$(VALE_STYLE_SOURCES))
 ORG_DIR=$(HOME)/Org
 CAPTURE_TEMPLATE_DIR=$(ORG_DIR)/capture-templates/
-CAPTURE_TEMPLATE_SOURCES=daily_summary.org staff_meeting.org staff_meeting_as_attendee.org incident.org todo.org
+CAPTURE_TEMPLATE_SOURCES=daily_summary.org staff_meeting.org staff_meeting_as_attendee.org incident.org todo.org draft.org personal_draft.org
 CAPTURE_TEMPLATES=$(addprefix $(CAPTURE_TEMPLATE_DIR), $(CAPTURE_TEMPLATE_SOURCES))
 
 ${VALE_STYLE_DIR}%: Vale/Styles/%
