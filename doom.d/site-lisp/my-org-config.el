@@ -124,6 +124,7 @@
          (interviews-file (concat work-directory "Interviews/interviews.org"))
          (feedback-file (concat work-directory "Feedback/feedback.org"))
          (drafts-file (concat work-directory "Drafts/drafts.org"))
+         (personal-drafts-file (concat personal-directory "PersonalDrafts/personal_drafts.org"))
          (journal-file (concat personal-directory "Journal/journal.org"))
          (daily-summary-file (concat personal-directory "Journal/daily_summaries.org"))
          (capture-templates-dir (concat personal-directory "capture-templates/"))
@@ -161,6 +162,9 @@
                                   ("D" "Discuss" entry
                                    (file+headline ,gtd-inbox-file "Inbox")
                                    "* TODO Talk with %^{Person} about %^{Topic} %^g\n:PROPERTIES:\n:created: %U\n:talks: true\n:person: %\\1\n:END:\n%?\n")
+
+                                  ("e" "Personal Draft (draft up something non-work-related)" entry (file+headline ,personal-drafts-file "Drafts")
+                                   "* %^{Subject}\n** Date: %^U\n** Notes\n%?" :empty-lines 1)
 
                                   ("f" "Feedback" entry
                                    (file+headline ,feedback-file "Feedback")
