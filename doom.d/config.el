@@ -83,6 +83,9 @@
 (setq calendar-longitude -74.0)
 (setq calendar-location-name "New York, NY")
 
+;; Don't need to know about Baha'i holidays
+(setq holiday-bahai-holidays nil)
+
 ;; Don't add duplicate kills to the kill ring
 (setq kill-do-not-save-duplicates t)
 
