@@ -17,6 +17,7 @@
   ;;; Tell org how to open attachments
   (add-to-list 'org-file-apps '("\\.docx\\'" . default))
   (add-to-list 'org-file-apps '("\\.xlsx\\'" . default))
+  (add-to-list 'org-file-apps '("\\.pptx\\'" . default))
 
   ;; The format for durations (e.g. in clock reports)
   (setq org-duration-format 'h:mm)
