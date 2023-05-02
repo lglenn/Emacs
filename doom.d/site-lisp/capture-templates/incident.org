@@ -2,6 +2,7 @@
 :PROPERTIES:
 :system: %^{System}
 :date: %^{Date}u
+:severity: %^{Severity (P3/2/1)}
 :END:
 
 ** Timeline
