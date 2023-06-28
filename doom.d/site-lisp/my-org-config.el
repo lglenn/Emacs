@@ -190,8 +190,7 @@
 
                                   ("i" "Interview" entry
                                    (file+headline ,interviews-file "Interviews")
-                                   "* %^{Candidate Name}\n** Date: %^U\n** Notes\n  - %?"
-                                   :empty-lines 1)
+                                   (file ,(template-file "interview.org")) :empty-lines 1)
 
                                   ("I" "Incident" entry
                                    (file+olp ,incidents-file "Time Tracking" "Operational Excellence" "Incidents")

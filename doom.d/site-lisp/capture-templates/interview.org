@@ -1,0 +1,9 @@
+* %^{Candidate Name}
+:PROPERTIES:
+:team: %^{Team}
+:created: %U
+:role: %^{Role}
+:END:
+** Date: %^U
+** Notes
+- %?
