@@ -58,6 +58,8 @@
 (package! org-bullets)
 (package! all-the-icons-ivy)
 
+(package! emacsql-sqlite)
+
 (provide 'packages)
 
 ;;; packages.el ends here
