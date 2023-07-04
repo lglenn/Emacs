@@ -156,6 +156,9 @@
 
 (add-hook! text-mode 'abbrev-mode)
 
+;;; Dictionary lokups go to dict.org by default
+(setq dictionary-server "dict.org")
+
 ;; Select a different theme
 ;;(setq doom-theme 'doom-solarized-light)
 
