@@ -1,6 +1,7 @@
-TARGET_DIR=$(HOME)/.doom.d/
 FILES=init.el config.el packages.el site-lisp/my-org-config.el site-lisp/my-roam-config.el
-SOURCES=$(addprefix doom.d/,$(FILES))
+TARGET_DIR=$(HOME)/.config/doom/
+EMACSD=$(HOME)/.config/emacs
+SOURCES=$(addprefix doom/,$(FILES))
 TARGETS=$(addprefix $(TARGET_DIR),$(FILES))
 VALE_STYLE_DIR=$(HOME)/.vale-styles/
 VALE_STYLE_SOURCES=proselint/proselint Microsoft/Microsoft readability/Readability write-good/write-good
@@ -14,11 +15,11 @@ ${VALE_STYLE_DIR}%: Vale/Styles/%
 	mkdir -p $@
 	cp -r $< $@
 
-${CAPTURE_TEMPLATE_DIR}%: doom.d/site-lisp/capture-templates/%
+${CAPTURE_TEMPLATE_DIR}%: doom/site-lisp/capture-templates/%
 	mkdir -p ${CAPTURE_TEMPLATE_DIR}
 	cp $< $@
 
-${TARGET_DIR}%.el: doom.d/%.el
+${TARGET_DIR}%.el: doom/%.el
 	mkdir -p $(dir $@)
 	cp $< $@
 
@@ -30,7 +31,7 @@ touch:
 files: $(TARGETS) $(CAPTURE_TEMPLATES)
 
 sync: files
-	$(HOME)/.emacs.d/bin/doom sync
+	$(EMACSD)/bin/doom sync
 
 $(HOME)/.vale.ini: Vale/vale.ini
 	cp Vale/vale.ini $(HOME)/.vale.ini
