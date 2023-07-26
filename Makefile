@@ -1,6 +1,6 @@
-FILES=init.el config.el packages.el site-lisp/my-org-config.el site-lisp/my-roam-config.el
 TARGET_DIR=$(HOME)/.config/doom/
 EMACSD=$(HOME)/.config/emacs
+FILES=init.el config.el packages.el site-lisp/my-org-config.el site-lisp/my-roam-config.el local-org-config.sample.el
 SOURCES=$(addprefix doom/,$(FILES))
 TARGETS=$(addprefix $(TARGET_DIR),$(FILES))
 VALE_STYLE_DIR=$(HOME)/.vale-styles/
@@ -30,7 +30,10 @@ touch:
 
 files: $(TARGETS) $(CAPTURE_TEMPLATES)
 
-sync: files
+$(TARGET_DIR)/local-org-config.el:
+	if [ -e $(TARGET_DIR)/local-org-config.el ]; then echo "foo"; else cp doom/local-org-config.sample.el $(TARGET_DIR)/local-org-config.el; fi
+
+sync: files $(TARGET_DIR)/local-org-config.el
 	$(EMACSD)/bin/doom sync
 
 $(HOME)/.vale.ini: Vale/vale.ini
