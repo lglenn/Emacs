@@ -23,7 +23,7 @@
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
 (setq doom-font (font-spec :family "Inconsolata" :size 14)
-      doom-variable-pitch-font (font-spec :family "Gentium Book Basic" :size 14 :weight 'semi-light))
+      doom-variable-pitch-font (font-spec :family "Gentium Book Plus" :size 14 :weight 'semi-light))
 
 (custom-set-faces!
   '(font-lock-comment-face :slant italic)
