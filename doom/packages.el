@@ -59,6 +59,7 @@
 (package! all-the-icons-ivy)
 
 (package! emacsql-sqlite)
+(package! websocket)
 
 (provide 'packages)
 
