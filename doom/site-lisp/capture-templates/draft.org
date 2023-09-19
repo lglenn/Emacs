@@ -1,4 +1,5 @@
 * %^{Subject}
 ** Date: %^U
-** Notes
-%?
+** Outline
+- %?
+** Text
