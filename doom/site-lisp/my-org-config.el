@@ -84,25 +84,6 @@
       (member (org-entry-get nil "PRIORITY") '("A" "C")))
      (point-at-eol)))
 
-  (setq org-agenda-custom-commands
-        '(("n" . "Prefix for agendas with todos")
-          ("na" "Agenda and all TODOs" ((agenda "") (alltodo "")))
-          ("nA" "Agenda and all TODO by tag" ((agenda "") (tags-todo "@work") (tags-todo "@laptop") (tags-todo "@home") (tags-todo "-@work-@home-@laptop")))
-          ("nw" "Agenda and work-related TODOs" ((agenda "") (tags-todo "@work")))
-          ("np" "Personal agenda and TODOs"
-           ((agenda "") (tags-todo "@home") (tags-todo "@laptop"))
-           ((org-agenda-skip-function '(org-agenda-skip-subtree-if 'notregexp ":@\\(home\\|laptop\\):"))))
-          ("ns" "Agenda and school-related TODOs" ((agenda "") (tags "@school")))
-          ("p" "Agenda for items with non-default priority (A or C)" ((agenda "") (alltodo "")) ((org-agenda-skip-function 'skip-no-priority)))
-          ("x" agenda)
-          ("y" agenda*)
-          ("w" todo "WAITING|DELEGATED")
-          ("@" . "Special tag searches: @h: @home @l: @laptop @o: office @w: @work")
-          ("@h" tags "+@home")
-          ("@l" tags "+@laptop")
-          ("@o" tags "+@office")
-          ("@w" tags "+@work")))
-
   ;; Ideas from https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html and modified
   (let* ((inbox "inbox.org")
          (tickler "tickler.org")
@@ -147,6 +128,28 @@
 
     (defun template-file (filename)
       (concat capture-templates-dir filename))
+
+    (setq org-agenda-custom-commands
+          '(("n" . "Prefix for agendas with todos")
+            ("na" "Agenda and all TODOs" ((agenda "") (alltodo "")))
+            ("nA" "Agenda and all TODO by tag" ((agenda "") (tags-todo "@work") (tags-todo "@laptop") (tags-todo "@home") (tags-todo "-@work-@home-@laptop")))
+            ("nw" "Agenda and work-related TODOs" ((agenda "") (tags-todo "@work")))
+            ("np" "Personal agenda and TODOs"
+             ((agenda "") (tags-todo "@home") (tags-todo "@laptop"))
+             ((org-agenda-skip-function '(org-agenda-skip-subtree-if 'notregexp ":@\\(home\\|laptop\\):"))))
+            ("ns" "Agenda and school-related TODOs" ((agenda "") (tags "@school")))
+            ("i" "Process My Inbox" alltodo "" ((org-agenda-files '("~/Org/GTD/inbox.org"))))
+            ("p" "Agenda for items with non-default priority (A or C)" ((agenda "") (alltodo "")) ((org-agenda-skip-function 'skip-no-priority)))
+            ("x" agenda)
+            ("y" agenda*)
+            ("w" todo "WAITING|DELEGATED")
+            ("@" . "Special tag searches: @h: @home @l: @laptop @o: office @w: @work")
+            ("@h" tags "+@home")
+            ("@l" tags "+@laptop")
+            ("@o" tags "+@office")
+            ("@w" tags "+@work")))
+
+
 
     ;; Note the use of backquote and commas here
     ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Backquote.html
