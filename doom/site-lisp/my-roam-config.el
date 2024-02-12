@@ -40,11 +40,13 @@
         org-roam-node-annotation-function
         (lambda (node) (marginalia--time (org-roam-node-file-mtime node))))
 
-  (setq org-roam-capture-templates '(("d" "default" plain "%?"
-                                     :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: ${Tags}")
-                                     :unnarrowed t)
-                                    ("g" "glossary" plain "%?"
-                                     :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: glossary\n")
+  (setq org-roam-capture-templates '(("d" "default" plain
+                                      "%?\n\n_References_"
+                                      :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: ${Tags}\n\n")
+                                      :unnarrowed t)
+                                    ("g" "glossary" plain
+                                      "%?\n\n_References_"
+                                     :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: glossary ${Tags}\n\n")
                                      :unnarrowed t))))
 
 (provide 'my-roam-config)
