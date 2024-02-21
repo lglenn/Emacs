@@ -64,9 +64,9 @@
   (setq org-todo-keywords
         '((sequence "TODO(t!)"
                     "WAITING(w@/!)"
+                    "DELEGATED(l@/!)"
                     "|"
                     "CANCELLED(c@)"
-                    "DELEGATED(l@/!)"
                     "EXPIRED(e!)"
                     "GARBAGE(g)"
                     "NOT ACTIONABLE(n)"
