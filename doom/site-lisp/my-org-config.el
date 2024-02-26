@@ -31,6 +31,14 @@
   ;; Enable hyperlinks to info pages
   (require 'ol-info)
 
+  ;; Use git to version attachments
+  (require 'org-attach-git)
+
+  ;; Doom org creates a central attachment directory, I don't like that.
+  ;; https://docs.doomemacs.org/v21.12/modules/lang/org/
+  ;; See +org-init-attachments-h in lang/org/config.el
+  (setq org-attach-id-dir "./attachments")
+
   ;; Show entries from the emacs diary in agenda by default
   (setq org-agenda-include-diary t)
 
