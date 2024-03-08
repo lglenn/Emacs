@@ -54,6 +54,10 @@
   ;; Hide text formatters such as / * etc
   (setq org-hide-emphasis-markers t)
 
+  ;; Jump (org-goto) behavior
+(setq org-goto-interface 'outline-path-completion)
+(setq org-outline-path-complete-in-steps nil)
+
   ;; Log todo state changes
   (setq org-log-into-drawer "LOGBOOK")
 
