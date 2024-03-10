@@ -11,6 +11,10 @@
   (map! "\C-ca" 'org-agenda)
   (map! "\C-cc" 'org-capture)
 
+  ;; Use this to expand abbrevs in capture prompts
+  (map! :desc "Enable Abbrev Mode"
+      "C-c C-a" (lambda () (interactive) (abbrev-mode 1)))
+
   ;;; Blinking cursor is nice
   (blink-cursor-mode)
 
@@ -55,6 +59,7 @@
   (setq org-hide-emphasis-markers t)
 
   ;; Jump (org-goto) behavior
+  ;; ;; See https://emacs.stackexchange.com/questions/32617/how-to-jump-directly-to-an-org-headline
 (setq org-goto-interface 'outline-path-completion)
 (setq org-outline-path-complete-in-steps nil)
 
