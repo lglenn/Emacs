@@ -81,6 +81,7 @@
   (setq org-todo-keywords
         '((sequence "TODO(t!)"
                     "WAITING(w@/!)"
+                    "DEPENDENCY(d@/!)"
                     "DELEGATED(l@/!)"
                     "|"
                     "CANCELLED(c@)"
