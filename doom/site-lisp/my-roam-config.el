@@ -44,9 +44,9 @@
                                       "%?\n\n_References_"
                                       :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: ${Tags}\n\n")
                                       :unnarrowed t)
-                                    ("g" "glossary" plain
+                                     ("g" "glossary" plain
                                       "%?\n\n_References_"
-                                     :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: glossary ${Tags}\n\n")
-                                     :unnarrowed t))))
+                                      :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: glossary ${Tags}\n\n")
+                                      :unnarrowed t))))
 
 (provide 'my-roam-config)

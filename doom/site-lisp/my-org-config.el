@@ -122,6 +122,7 @@
          (coach-file (concat personal-directory coach))
          (meeting-notes-file (concat work-directory "MeetingNotes/meetings.org"))
          (interviews-file (concat work-directory "Interviews/interviews.org"))
+         (bookmarks-file (concat work-directory "Bookmarks/bookmarks.org"))
          (feedback-file (concat work-directory "Feedback/feedback.org"))
          (drafts-file (concat work-directory "Drafts/drafts.org"))
          (personal-drafts-file (concat personal-directory "PersonalDrafts/personal_drafts.org"))
@@ -173,6 +174,10 @@
     ;; Note the use of backquote and commas here
     ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Backquote.html
     (setq org-capture-templates `(
+
+                                  ("b" "Save a bookmark to something not important enough to go in the Zettelkasten" entry
+                                   (file+headline ,bookmarks-file "Bookmarks")
+                                   (file ,(template-file "bookmark.org")) :empty-lines 1)
 
                                   ("c" "Coaching Observation" entry (file+headline ,coach-file "Capture") "** %?\n")
 
