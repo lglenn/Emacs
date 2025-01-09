@@ -280,7 +280,18 @@
 		     (cond ((stringp file)
 			    (cons (concat gtd-directory file) params))
 			   (t e))))))
-            (mapcar prepend-directory-if-string refile-target-files)))))
+            (mapcar prepend-directory-if-string refile-target-files))))
 
-  (provide 'my-org-config)
+  ;; Stolen from https://orgmode.org/worg/org-tutorials/encrypting-files.html
+  ;; Contents of any node with a :crypt: tag will be symmetrically encryped
+  ;; when the document is saved. Headline will be plaintext.
+  ;; If you want to use asymmetric encryption, set the value of org-crypt-key
+  ;; to your GPG key ID (if nil, then symmetric).
+  ;; Decrypt with M-x org-decrypt-entry
+  (require 'org-crypt)
+  (org-crypt-use-before-save-magic)
+  (setq org-tags-exclude-from-inheritance (quote ("crypt")))
+  (setq org-crypt-key nil))
+
+(provide 'my-org-config)
 ;;; my-org.config.el ends here
