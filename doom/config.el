@@ -159,6 +159,20 @@
 ;;; Dictionary lokups go to dict.org by default
 (setq dictionary-server "dict.org")
 
+
+;; LLM's
+;; Meta-Llama-3-8B-Instruct.Q4_0.gguf
+;; wizardlm-13b-v1.2.Q4_0.gguf
+;; Meta-Llama-3-8B-Instruct.Q4_0.gguf
+(use-package! gptel
+ :config
+ (let ((models '(wizardlm-13b-v1.2.Q4_0.gguf Meta-Llama-3-8B-Instruct.Q4_0.gguf)))
+   (setq! gptel-max-tokens 500
+          gptel-model (car models)
+          gptel-backend (gptel-make-gpt4all "GPT4All"
+                          :protocol "http"
+                          :host "localhost:4891"
+                          :models models))))
 ;; Select a different theme
 ;;(setq doom-theme 'doom-solarized-light)
 

@@ -61,6 +61,8 @@
 (package! emacsql-sqlite)
 (package! websocket)
 
+(package! gptel)
+
 (provide 'packages)
 
 ;;; packages.el ends here
