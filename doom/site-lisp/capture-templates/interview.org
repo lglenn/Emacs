@@ -1,9 +1,12 @@
 * %^{Candidate Name}
 :PROPERTIES:
 :team: %^{Team}
-:created: %U
+:hiring_manager: %^{Hiring Manager}
 :role: %^{Role}
+:created: %U
 :END:
 ** Date: %^U
+** Materials
+-
 ** Notes
 - %?
