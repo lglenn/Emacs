@@ -231,8 +231,7 @@
 
                                   ("m" "Meeting" entry
                                    (file+headline ,meeting-notes-file "Meetings")
-                                   "* %^{Description}\n** Date: %^U\n** Agenda\n   - \n** Attendees\n   - \n** Notes\n   - %? \n** To-Dos\n"
-                                   :empty-lines 1)
+                                   (file ,(template-file "meeting.org")) :empty-lines 1)
 
                                   ("o" "One on One" entry
                                    (file+headline ,meeting-notes-file "Meetings")
