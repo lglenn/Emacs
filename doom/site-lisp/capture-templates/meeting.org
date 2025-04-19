@@ -1,0 +1,9 @@
+* %^{Description}
+** Date: %^U
+** Agenda
+-
+** Attendees
+-
+** Notes
+- %?
+** To-Dos

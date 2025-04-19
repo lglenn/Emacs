@@ -1,6 +1,8 @@
 ;;; my-org-config --- Tweaks for org-mode
-;;;
 
+;;; Commentary:
+;;; My org-mode custimizations
+;;;
 ;;; Code:
 
 (after! org
@@ -116,6 +118,7 @@
          (glossary-file (concat work-directory glossary))
          (coach-file (concat personal-directory coach))
          (meeting-notes-file (concat work-directory "MeetingNotes/meetings.org"))
+         (personal-meeting-notes-file (concat personal-directory "PersonalMeetingNotes/personal_meetings.org"))
          (interviews-file (concat work-directory "Interviews/interviews.org"))
          (bookmarks-file (concat work-directory "Bookmarks/bookmarks.org"))
          (feedback-file (concat work-directory "Feedback/feedback.org"))
@@ -221,6 +224,10 @@
                                   ("j" "Journal Entry" entry
                                    (file+olp+datetree ,journal-file)
                                    "** %<%k:%M %p>\n%?\n" :tree-type week)
+
+                                  ("M" "Personal Meeting" entry
+                                   (file+headline ,personal-meeting-notes-file "Personal Meetings")
+                                   (file ,(template-file "meeting.org")) :empty-lines 1)
 
                                   ("m" "Meeting" entry
                                    (file+headline ,meeting-notes-file "Meetings")
