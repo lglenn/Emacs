@@ -3,3 +3,4 @@
 *.log
 tmp/
 .dir-locals.el
+.vscode
