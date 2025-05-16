@@ -58,7 +58,6 @@
 (package! org-bullets)
 (package! all-the-icons-ivy)
 
-(package! emacsql-sqlite)
 (package! websocket)
 
 (package! gptel)
