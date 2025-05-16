@@ -50,8 +50,13 @@
   ;; Wrap lines
   (add-hook! org-mode 'visual-line-mode)
 
-  ;; Pretty Bullets
-  (setq org-superstar-headline-bullets-list '("⁖" "◉" "○" "✸" "✿"))
+  ;; Pretty bullets and formatting via org-modern
+  (setq org-modern-replace-stars '("⁖" "◉" "○" "✸" "✿")
+        org-modern-star t
+        org-modern-hide-stars t
+        org-modern-block-fringe t
+        org-modern-todo t
+        org-modern-table nil)
 
   ;; Hide text formatters such as / * etc
   (setq org-hide-emphasis-markers t)

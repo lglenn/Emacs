@@ -55,7 +55,8 @@
 (unpin! org-roam)
 (package! org-roam-ui)
 
-(package! org-bullets)
+(package! org-modern)
+
 (package! all-the-icons-ivy)
 
 (package! websocket)
