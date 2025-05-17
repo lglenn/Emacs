@@ -22,8 +22,8 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
-(setq doom-font (font-spec :family "Inconsolata" :size 14)
-      doom-variable-pitch-font (font-spec :family "Gentium Book Plus" :size 14 :weight 'semi-light))
+(setq doom-font (font-spec :family "Source Code Pro" :size 12)
+      doom-variable-pitch-font (font-spec :family "Source Serif 4" :size 12 :weight 'semi-light))
 
 (custom-set-faces!
   '(font-lock-comment-face :slant italic)
@@ -175,6 +175,7 @@
                           :models models))))
 ;; Select a different theme
 ;;(setq doom-theme 'doom-solarized-light)
+
 
 (provide 'config)
 
