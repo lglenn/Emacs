@@ -11,3 +11,6 @@
 ;; (setq work-directory "~/work/")
 ;; (setq personal-directory "~/docs/")
 ;; (setq roam-directory "~/roam/")
+
+;; For LaTex
+;; (setq latex-bin-dir "/Library/TeX/texbin")

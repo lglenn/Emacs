@@ -13,6 +13,12 @@
   (map! "\C-ca" 'org-agenda)
   (map! "\C-cc" 'org-capture)
 
+  ;; Need this to display math using org-latex-preview
+  (setenv "PATH" (concat latex-bin-dir ":" (getenv "PATH")))
+  (add-to-list 'exec-path latex-bin-dir)
+  (setq org-latex-create-formula-image-program 'imagemagick)
+  (setq org-startup-with-latex-preview t)
+
   ;;; Blinking cursor is nice
   (blink-cursor-mode)
 
