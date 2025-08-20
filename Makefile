@@ -69,3 +69,5 @@ vale-clean:
 
 run:
 	emacs
+
+.PHONY: all daemon restart touch files sync vale vale-clean run
