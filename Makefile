@@ -46,12 +46,12 @@ restart:
 touch:
 	touch $(SOURCES) $(CAPTURE_TEMPLATE_SOURCES)
 
-files: $(TARGETS) $(CAPTURE_TEMPLATES)
+files: $(TARGETS) $(CAPTURE_TEMPLATES) $(TARGET_DIR)/local-org-config.el
 
 $(TARGET_DIR)/local-org-config.el:
 	if [ -e $(TARGET_DIR)/local-org-config.el ]; then echo "foo"; else cp doom/local-org-config.sample.el $(TARGET_DIR)/local-org-config.el; fi
 
-sync: files $(TARGET_DIR)/local-org-config.el
+sync: files
 	$(EMACSD)/bin/doom sync
 
 $(HOME)/.vale.ini: Vale/vale.ini
