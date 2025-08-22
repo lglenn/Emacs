@@ -23,7 +23,7 @@
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
 (setq doom-font (font-spec :family "Source Code Pro" :size 12)
-      doom-variable-pitch-font (font-spec :family "Source Serif 4" :size 12 :weight 'semi-light))
+      doom-variable-pitch-font (font-spec :family "SF Pro" :size 12 :weight 'light))
 
 (custom-set-faces!
   '(font-lock-comment-face :slant italic)
