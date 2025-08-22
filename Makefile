@@ -12,6 +12,8 @@ CAPTURE_TEMPLATE_SOURCES=daily_summary.org staff_meeting.org staff_meeting_as_at
 CAPTURE_TEMPLATES=$(addprefix $(CAPTURE_TEMPLATE_DIR), $(CAPTURE_TEMPLATE_SOURCES))
 LAUNCHD_FILE=$(HOME)/Library/LaunchAgents/gnu.emacs.daemon.plist
 
+all: sync vale daemon
+
 ${VALE_STYLE_DIR}%: Vale/Styles/%
 	mkdir -p $@
 	cp -r $< $@
@@ -27,8 +29,6 @@ ${TARGET_DIR}%.el: doom/%.el
 ${LAUNCHD_FILE}: daemon/gnu.emacs.daemon.plist
 	cp $< $@
 	@echo "Updated emacs daemon config file -- restart with make restart for changes to take effect."
-
-all: sync vale daemon
 
 daemon: $(LAUNCHD_FILE)
 
