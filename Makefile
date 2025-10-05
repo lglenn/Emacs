@@ -1,6 +1,6 @@
 TARGET_DIR=$(HOME)/.config/doom/
 EMACSD=$(HOME)/.config/emacs
-FILES=init.el config.el packages.el site-lisp/my-org-config.el site-lisp/my-roam-config.el local-org-config.sample.el
+FILES=init.el config.el packages.el site-lisp/my-org-config.el site-lisp/my-roam-config.el local-org-config.sample.el secrets-sample.el
 SOURCES=$(addprefix doom/,$(FILES))
 TARGETS=$(addprefix $(TARGET_DIR),$(FILES))
 VALE_STYLE_DIR=$(HOME)/.vale-styles/
@@ -61,7 +61,23 @@ $(VALE_STYLE_DIR)Vocab: Vale/vale-boilerplate/styles/Vocab
 	mkdir -p $(VALE_STYLE_DIR)
 	cp -r $< $@
 
-vale: $(HOME)/.vale.ini $(VALE_STYLE_DIR)Vocab $(VALE_STYLES)
+vale: install-vale $(HOME)/.vale.ini $(VALE_STYLE_DIR)Vocab $(VALE_STYLES)
+
+install-vale:
+	@if ! command -v vale >/dev/null 2>&1; then \
+		echo "Vale not found. Installing via Homebrew..."; \
+		if command -v brew >/dev/null 2>&1; then \
+			brew install vale; \
+		else \
+			echo "Error: Homebrew not found. Please install Vale manually:"; \
+			echo "  - Via Homebrew: brew install vale"; \
+			echo "  - Via Go: go install github.com/errata-ai/vale/v2/cmd/vale@latest"; \
+			echo "  - Download from: https://github.com/errata-ai/vale/releases"; \
+			exit 1; \
+		fi; \
+	else \
+		echo "Vale already installed: $$(vale --version)"; \
+	fi
 
 vale-clean:
 	rm -rf $(VALE_STYLE_DIR)
@@ -70,4 +86,4 @@ vale-clean:
 run:
 	emacs
 
-.PHONY: all daemon restart touch files sync vale vale-clean run
+.PHONY: all daemon restart touch files sync vale vale-clean run install-vale

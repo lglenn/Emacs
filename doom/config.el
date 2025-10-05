@@ -159,20 +159,55 @@
 ;;; Dictionary lokups go to dict.org by default
 (setq dictionary-server "dict.org")
 
+;;; Load private secrets (API keys, etc.)
+(load! "secrets" nil t)  ; Load secrets.el if it exists, don't error if missing
 
-;; LLM's
-;; Meta-Llama-3-8B-Instruct.Q4_0.gguf
-;; wizardlm-13b-v1.2.Q4_0.gguf
-;; Meta-Llama-3-8B-Instruct.Q4_0.gguf
+;;; LLM Configuration with gptel
 (use-package! gptel
- :config
- (let ((models '(wizardlm-13b-v1.2.Q4_0.gguf Meta-Llama-3-8B-Instruct.Q4_0.gguf)))
-   (setq! gptel-max-tokens 500
-          gptel-model (car models)
-          gptel-backend (gptel-make-gpt4all "GPT4All"
-                          :protocol "http"
-                          :host "localhost:4891"
-                          :models models))))
+  :config
+  ;; Set default model parameters
+  (setq gptel-default-mode 'org-mode)
+
+  ;; OpenAI Configuration (requires API key)
+  ;; Uncomment and set your API key in secrets.el to use OpenAI
+  ;; (setq gptel-api-key openai-api-key)
+  ;; (setq gptel-model "gpt-4")
+
+  ;; Anthropic Claude Configuration (uses API key from secrets.el)
+  (when (boundp 'anthropic-api-key)
+    (setq gptel-backend (gptel-make-anthropic "Claude"
+                          :stream t
+                          :key anthropic-api-key))
+    (setq gptel-model 'claude-3-5-sonnet-20241022))
+
+  ;; Custom system prompts/directives
+  (setq gptel-directives
+        '((default . "You are a helpful assistant.")
+          (programming . "You are an expert programmer. Provide clear, concise code examples and explanations. Focus on best practices and readable code.")
+          (writing . "You are a skilled writing assistant. Help improve clarity, style, and structure while maintaining the author's voice.")
+          (emacs . "You are an Emacs expert. Provide practical elisp solutions and configuration advice for Doom Emacs users.")
+          (research . "You are a research assistant. Provide accurate, well-sourced information and help analyze complex topics systematically.")))
+
+  ;; Set default directive
+  (setq gptel-default-directive "programming")
+
+  ;; Local model configuration (Ollama)
+  ;; Uncomment to use local Ollama models
+  ;; (setq gptel-backend (gptel-make-ollama "Ollama"
+  ;;                       :host "localhost:11434"
+  ;;                       :stream t
+  ;;                       :models '("llama2" "codellama" "mistral")))
+  ;; (setq gptel-model "llama2")
+
+  ;; Key bindings
+  (map! :leader
+        (:prefix ("o" . "open")
+         :desc "gptel chat" "g" #'gptel)
+        :leader
+        :desc "gptel send" "G" #'gptel-send
+        :leader
+        :desc "gptel menu" "M-g" #'gptel-menu))
+
 ;; Select a different theme
 ;;(setq doom-theme 'doom-solarized-light)
 
