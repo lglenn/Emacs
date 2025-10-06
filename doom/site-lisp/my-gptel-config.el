@@ -54,83 +54,95 @@
         :desc "gptel menu" "M-g" #'gptel-menu))
 
 ;;; Writing Critique System
+;; Defer loading until gptel is available and ensure robustness
 
-;; Writing critique keybindings
-(map! :leader
-      (:prefix ("w" . "write")
-       :desc "critique menu" "c" #'my/gptel-writing-critique-menu
-       :desc "critique general" "g" #'my/gptel-critique-general
-       :desc "critique style" "s" #'my/gptel-critique-style
-       :desc "critique clarity" "C" #'my/gptel-critique-clarity))
+(after! gptel
 
-(defun my/gptel-writing-critique-menu ()
-  "Interactive menu for different writing critiques"
-  (interactive)
-  (unless (use-region-p)
-    (user-error "Please select a region of text to critique"))
+  ;; Helper function for critique operations
+  (defun my/gptel-critique-with-prompt (prompt-text)
+    "Send selected text to gptel with a specific critique prompt in a new buffer."
+    (unless (fboundp 'gptel-send)
+      (user-error "GPTel is not available. Please ensure gptel is properly configured"))
+    (let* ((selected-text (buffer-substring-no-properties (region-beginning) (region-end)))
+           (critique-type (car (split-string prompt-text " " t)))
+           (buffer-name (format "*Writing Critique: %s*" critique-type))
+           (critique-buffer (get-buffer-create buffer-name)))
+      (with-current-buffer critique-buffer
+        (erase-buffer)
+        (org-mode)
+        (when (fboundp 'gptel-mode)
+          (gptel-mode))
+        (insert prompt-text "\n\n" selected-text)
+        (goto-char (point-max)))
+      (pop-to-buffer critique-buffer)
+      (gptel-send)))
 
-  (let ((choice (read-multiple-choice
-                 "Select critique focus:"
-                 '((?g "general" "Comprehensive writing critique")
-                   (?s "style" "Focus on style and tone")
-                   (?c "clarity" "Focus on clarity and coherence")
-                   (?f "flow" "Focus on structure and flow")
-                   (?a "academic" "Academic writing standards")
-                   (?b "business" "Business communication")
-                   (?t "technical" "Technical writing clarity")))))
-    (pcase (car choice)
-      (?g (my/gptel-critique-general))
-      (?s (my/gptel-critique-style))
-      (?c (my/gptel-critique-clarity))
-      (?f (my/gptel-critique-flow))
-      (?a (my/gptel-critique-academic))
-      (?b (my/gptel-critique-business))
-      (?t (my/gptel-critique-technical)))))
+  ;; Individual critique functions
+  (defun my/gptel-critique-general ()
+    "Provide comprehensive writing feedback on selected text."
+    (interactive)
+    (my/gptel-critique-with-prompt "Please provide comprehensive writing feedback on the following text, covering: clarity, coherence, grammar, style, structure, and word choice. Include specific examples and actionable suggestions.\n\nText to critique:"))
 
-;; Helper function for critique operations
-(defun my/gptel-critique-with-prompt (prompt-text)
-  "Send selected text to gptel with a specific critique prompt in a new buffer."
-  (let* ((selected-text (buffer-substring-no-properties (region-beginning) (region-end)))
-         (critique-type (car (split-string prompt-text " " t)))
-         (buffer-name (format "*Writing Critique: %s*" critique-type))
-         (critique-buffer (get-buffer-create buffer-name)))
-    (with-current-buffer critique-buffer
-      (erase-buffer)
-      (org-mode)
-      (gptel-mode)
-      (insert prompt-text "\n\n" selected-text)
-      (goto-char (point-max)))
-    (pop-to-buffer critique-buffer)
-    (gptel-send)))
+  (defun my/gptel-critique-style ()
+    "Analyze writing style of selected text."
+    (interactive)
+    (my/gptel-critique-with-prompt "Please analyze the writing style of the following text, focusing on: tone consistency, voice, sentence variety, word choice, rhythm, and overall readability. Suggest specific stylistic improvements.\n\nText to critique:"))
 
-;; Individual critique functions
-(defun my/gptel-critique-general ()
-  (interactive)
-  (my/gptel-critique-with-prompt "Please provide comprehensive writing feedback on the following text, covering: clarity, coherence, grammar, style, structure, and word choice. Include specific examples and actionable suggestions.\n\nText to critique:"))
+  (defun my/gptel-critique-clarity ()
+    "Analyze clarity and coherence of selected text."
+    (interactive)
+    (my/gptel-critique-with-prompt "Please analyze the clarity and coherence of the following text: Are ideas clearly expressed? Is the logic easy to follow? Are there confusing passages? Suggest specific ways to improve clarity.\n\nText to critique:"))
 
-(defun my/gptel-critique-style ()
-  (interactive)
-  (my/gptel-critique-with-prompt "Please analyze the writing style of the following text, focusing on: tone consistency, voice, sentence variety, word choice, rhythm, and overall readability. Suggest specific stylistic improvements.\n\nText to critique:"))
+  (defun my/gptel-critique-flow ()
+    "Evaluate structure and flow of selected text."
+    (interactive)
+    (my/gptel-critique-with-prompt "Please evaluate the structure and flow of the following text: Are paragraphs well-organized? Do ideas transition smoothly? Is the overall structure logical? Suggest improvements for better organization and flow.\n\nText to critique:"))
 
-(defun my/gptel-critique-clarity ()
-  (interactive)
-  (my/gptel-critique-with-prompt "Please analyze the clarity and coherence of the following text: Are ideas clearly expressed? Is the logic easy to follow? Are there confusing passages? Suggest specific ways to improve clarity.\n\nText to critique:"))
+  (defun my/gptel-critique-academic ()
+    "Review selected text for academic writing standards."
+    (interactive)
+    (my/gptel-critique-with-prompt "Please review the following text for academic writing standards: Check formal tone, argument structure, evidence support, citation style, objectivity, and scholarly conventions. Suggest improvements for academic rigor.\n\nText to critique:"))
 
-(defun my/gptel-critique-flow ()
-  (interactive)
-  (my/gptel-critique-with-prompt "Please evaluate the structure and flow of the following text: Are paragraphs well-organized? Do ideas transition smoothly? Is the overall structure logical? Suggest improvements for better organization and flow.\n\nText to critique:"))
+  (defun my/gptel-critique-business ()
+    "Analyze selected text for business communication effectiveness."
+    (interactive)
+    (my/gptel-critique-with-prompt "Please analyze the following text for business communication effectiveness: Check professional tone, conciseness, action-oriented language, audience appropriateness, and clarity of purpose. Suggest improvements for effective business writing.\n\nText to critique:"))
 
-(defun my/gptel-critique-academic ()
-  (interactive)
-  (my/gptel-critique-with-prompt "Please review the following text for academic writing standards: Check formal tone, argument structure, evidence support, citation style, objectivity, and scholarly conventions. Suggest improvements for academic rigor.\n\nText to critique:"))
+  (defun my/gptel-critique-technical ()
+    "Review selected text for technical writing clarity."
+    (interactive)
+    (my/gptel-critique-with-prompt "Please review the following text for technical writing clarity: Check precision, logical organization, appropriate terminology, step-by-step clarity, and accessibility to target audience. Suggest improvements for technical communication.\n\nText to critique:"))
 
-(defun my/gptel-critique-business ()
-  (interactive)
-  (my/gptel-critique-with-prompt "Please analyze the following text for business communication effectiveness: Check professional tone, conciseness, action-oriented language, audience appropriateness, and clarity of purpose. Suggest improvements for effective business writing.\n\nText to critique:"))
+  (defun my/gptel-writing-critique-menu ()
+    "Interactive menu for different writing critiques."
+    (interactive)
+    (unless (use-region-p)
+      (user-error "Please select a region of text to critique"))
+    (let ((choice (read-multiple-choice
+                   "Select critique focus:"
+                   '((?g "general" "Comprehensive writing critique")
+                     (?s "style" "Focus on style and tone")
+                     (?c "clarity" "Focus on clarity and coherence")
+                     (?f "flow" "Focus on structure and flow")
+                     (?a "academic" "Academic writing standards")
+                     (?b "business" "Business communication")
+                     (?t "technical" "Technical writing clarity")))))
+      (pcase (car choice)
+        (?g (my/gptel-critique-general))
+        (?s (my/gptel-critique-style))
+        (?c (my/gptel-critique-clarity))
+        (?f (my/gptel-critique-flow))
+        (?a (my/gptel-critique-academic))
+        (?b (my/gptel-critique-business))
+        (?t (my/gptel-critique-technical)))))
 
-(defun my/gptel-critique-technical ()
-  (interactive)
-  (my/gptel-critique-with-prompt "Please review the following text for technical writing clarity: Check precision, logical organization, appropriate terminology, step-by-step clarity, and accessibility to target audience. Suggest improvements for technical communication.\n\nText to critique:"))
+  ;; Writing critique keybindings - only set if gptel is available
+  (map! :leader
+        (:prefix ("w" . "write")
+         :desc "critique menu" "c" #'my/gptel-writing-critique-menu
+         :desc "critique general" "g" #'my/gptel-critique-general
+         :desc "critique style" "s" #'my/gptel-critique-style
+         :desc "critique clarity" "C" #'my/gptel-critique-clarity)))
 
 (provide 'my-gptel-config)
 
