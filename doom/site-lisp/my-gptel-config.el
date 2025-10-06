@@ -38,20 +38,20 @@
     (let ((ollama-backend (gptel-make-ollama "Ollama"
                             :host "localhost:11434"
                             :stream t
-                            :models '("llama3.2" "codellama" "mistral" "phi3"))))
+                            :models '("mistral" "llama3.2" "codellama" "phi3"))))
       (add-to-list 'my/gptel-backends `("Ollama" . ,ollama-backend))))
 
   ;; Set default backend (prefer Ollama > Claude > OpenAI)
   (cond
    ((assoc "Ollama" my/gptel-backends)
     (setq gptel-backend (cdr (assoc "Ollama" my/gptel-backends)))
-    (setq gptel-model "llama3.2"))
+    (setq gptel-model 'llama3.2))
    ((and (boundp 'anthropic-api-key) (assoc "Claude" my/gptel-backends))
     (setq gptel-backend (cdr (assoc "Claude" my/gptel-backends)))
-    (setq gptel-model "claude-3-5-sonnet-20241022"))
+    (setq gptel-model 'claude-3-5-sonnet-20241022))
    ((and (boundp 'openai-api-key) (assoc "OpenAI" my/gptel-backends))
     (setq gptel-backend (cdr (assoc "OpenAI" my/gptel-backends)))
-    (setq gptel-model "gpt-4o"))
+    (setq gptel-model 'gpt-4o))
    (t
     (message "No gptel backends available. Please configure API keys or install Ollama.")))
 
@@ -91,11 +91,11 @@
         ;; Set appropriate default model for each backend
         (cond
          ((string= choice "Claude")
-          (setq gptel-model "claude-3-5-sonnet-20241022"))
+          (setq gptel-model 'claude-3-5-sonnet-20241022))
          ((string= choice "OpenAI")
-          (setq gptel-model "gpt-4o"))
+          (setq gptel-model 'gpt-4o))
          ((string= choice "Ollama")
-          (setq gptel-model "llama3.2")))
+          (setq gptel-model 'llama3.2)))
         (message "Switched to %s backend with model %s" choice gptel-model))))
 
   ;; Key bindings
