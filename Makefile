@@ -1,6 +1,6 @@
 TARGET_DIR=$(HOME)/.config/doom/
 EMACSD=$(HOME)/.config/emacs
-FILES=init.el config.el packages.el site-lisp/my-org-config.el site-lisp/my-roam-config.el local-org-config.sample.el secrets-sample.el
+FILES=init.el config.el packages.el site-lisp/my-org-config.el site-lisp/my-roam-config.el site-lisp/my-gptel-config.el local-org-config.sample.el secrets-sample.el
 SOURCES=$(addprefix doom/,$(FILES))
 TARGETS=$(addprefix $(TARGET_DIR),$(FILES))
 VALE_STYLE_DIR=$(HOME)/.vale-styles/
