@@ -10,7 +10,7 @@
     <array>
       <!-- Assumes you have installed emacs via homebrew, you may need to modify -->
       <string>/opt/homebrew/bin/emacs</string>
-      <string>--daemon</string>
+      <string>--fg-daemon</string>
     </array>
 
     <key>RunAtLoad</key>
