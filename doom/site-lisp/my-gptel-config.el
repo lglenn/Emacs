@@ -45,7 +45,7 @@
   (cond
    ((assoc "Ollama" my/gptel-backends)
     (setq gptel-backend (cdr (assoc "Ollama" my/gptel-backends)))
-    (setq gptel-model 'llama3.2))
+    (setq gptel-model 'mistral))
    ((and (boundp 'anthropic-api-key) (assoc "Claude" my/gptel-backends))
     (setq gptel-backend (cdr (assoc "Claude" my/gptel-backends)))
     (setq gptel-model 'claude-3-5-sonnet-20241022))
@@ -95,7 +95,7 @@
          ((string= choice "OpenAI")
           (setq gptel-model 'gpt-4o))
          ((string= choice "Ollama")
-          (setq gptel-model 'llama3.2)))
+          (setq gptel-model 'mistral)))
         (message "Switched to %s backend with model %s" choice gptel-model))))
 
   ;; Key bindings
