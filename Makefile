@@ -4,7 +4,7 @@ FILES=init.el config.el packages.el site-lisp/my-org-config.el site-lisp/my-roam
 SOURCES=$(addprefix doom/,$(FILES))
 TARGETS=$(addprefix $(TARGET_DIR),$(FILES))
 VALE_STYLE_DIR=$(HOME)/.vale-styles/
-VALE_STYLE_SOURCES=proselint/proselint Microsoft/Microsoft readability/Readability write-good/write-good
+VALE_STYLE_SOURCES=
 VALE_STYLES=$(addprefix $(VALE_STYLE_DIR),$(VALE_STYLE_SOURCES))
 ORG_DIR=$(HOME)/Org
 CAPTURE_TEMPLATE_DIR=$(ORG_DIR)/capture-templates/
@@ -57,11 +57,7 @@ sync: files
 $(HOME)/.vale.ini: Vale/vale.ini
 	cp Vale/vale.ini $(HOME)/.vale.ini
 
-$(VALE_STYLE_DIR)Vocab: Vale/vale-boilerplate/styles/Vocab
-	mkdir -p $(VALE_STYLE_DIR)
-	cp -r $< $@
-
-vale: install-vale $(HOME)/.vale.ini $(VALE_STYLE_DIR)Vocab $(VALE_STYLES)
+vale: install-vale $(HOME)/.vale.ini $(VALE_STYLES)
 
 install-vale:
 	@if ! command -v vale >/dev/null 2>&1; then \
