@@ -13,17 +13,47 @@
   ;; Set default model parameters
   (setq gptel-default-mode 'org-mode)
 
-  ;; OpenAI Configuration (requires API key)
-  ;; Uncomment and set your API key in secrets.el to use OpenAI
-  (setq gptel-api-key openai-api-key)
-  (setq gptel-model "gpt-5")
+  ;; Define available backends as variables
+  (defvar my/gptel-backends '()
+    "List of available gptel backends.")
 
-  ;; Anthropic Claude Configuration (uses API key from secrets.el)
+  ;; OpenAI Configuration
+  (when (boundp 'openai-api-key)
+    (let ((openai-backend (gptel-make-openai "OpenAI"
+                            :key openai-api-key
+                            :stream t
+                            :models '("gpt-4o" "gpt-4o-mini" "gpt-4-turbo" "gpt-3.5-turbo"))))
+      (add-to-list 'my/gptel-backends `("OpenAI" . ,openai-backend))))
+
+  ;; Anthropic Claude Configuration
   (when (boundp 'anthropic-api-key)
-    (setq gptel-backend (gptel-make-anthropic "Claude"
-                          :stream t
-                          :key anthropic-api-key))
-    (setq gptel-model 'claude-3-5-sonnet-20241022))
+    (let ((claude-backend (gptel-make-anthropic "Claude"
+                            :key anthropic-api-key
+                            :stream t
+                            :models '("claude-3-5-sonnet-20241022" "claude-3-5-haiku-20241022" "claude-3-opus-20240229"))))
+      (add-to-list 'my/gptel-backends `("Claude" . ,claude-backend))))
+
+  ;; Local Ollama Configuration
+  (when (executable-find "ollama")
+    (let ((ollama-backend (gptel-make-ollama "Ollama"
+                            :host "localhost:11434"
+                            :stream t
+                            :models '("llama3.2" "codellama" "mistral" "phi3"))))
+      (add-to-list 'my/gptel-backends `("Ollama" . ,ollama-backend))))
+
+  ;; Set default backend (prefer Ollama > Claude > OpenAI)
+  (cond
+   ((assoc "Ollama" my/gptel-backends)
+    (setq gptel-backend (cdr (assoc "Ollama" my/gptel-backends)))
+    (setq gptel-model "llama3.2"))
+   ((and (boundp 'anthropic-api-key) (assoc "Claude" my/gptel-backends))
+    (setq gptel-backend (cdr (assoc "Claude" my/gptel-backends)))
+    (setq gptel-model "claude-3-5-sonnet-20241022"))
+   ((and (boundp 'openai-api-key) (assoc "OpenAI" my/gptel-backends))
+    (setq gptel-backend (cdr (assoc "OpenAI" my/gptel-backends)))
+    (setq gptel-model "gpt-4o"))
+   (t
+    (message "No gptel backends available. Please configure API keys or install Ollama.")))
 
   ;; Custom system prompts/directives
   (setq gptel-directives
@@ -36,13 +66,37 @@
   ;; Set default directive
   (setq gptel-default-directive "programming")
 
-  ;; Local model configuration (Ollama)
-  ;; Uncomment to use local Ollama models
-  ;; (setq gptel-backend (gptel-make-ollama "Ollama"
-  ;;                       :host "localhost:11434"
-  ;;                       :stream t
-  ;;                       :models '("llama2" "codellama" "mistral")))
-  ;; (setq gptel-model "llama2")
+  ;; Backend selection functions
+  (defun my/gptel-list-backends ()
+    "List available gptel backends."
+    (interactive)
+    (if my/gptel-backends
+        (let ((current-backend-name (or (and gptel-backend
+                                            (car (rassoc gptel-backend my/gptel-backends)))
+                                       "None")))
+          (message "Available backends: %s | Current: %s"
+                   (mapconcat 'car my/gptel-backends ", ")
+                   current-backend-name))
+      (message "No gptel backends available")))
+
+  (defun my/gptel-switch-backend ()
+    "Interactively switch between available gptel backends."
+    (interactive)
+    (if (not my/gptel-backends)
+        (user-error "No gptel backends available")
+      (let* ((backend-names (mapcar 'car my/gptel-backends))
+             (choice (completing-read "Select backend: " backend-names nil t))
+             (selected-backend (cdr (assoc choice my/gptel-backends))))
+        (setq gptel-backend selected-backend)
+        ;; Set appropriate default model for each backend
+        (cond
+         ((string= choice "Claude")
+          (setq gptel-model "claude-3-5-sonnet-20241022"))
+         ((string= choice "OpenAI")
+          (setq gptel-model "gpt-4o"))
+         ((string= choice "Ollama")
+          (setq gptel-model "llama3.2")))
+        (message "Switched to %s backend with model %s" choice gptel-model))))
 
   ;; Key bindings
   (map! :leader
@@ -51,7 +105,11 @@
         :leader
         :desc "gptel send" "G" #'gptel-send
         :leader
-        :desc "gptel menu" "M-g" #'gptel-menu))
+        :desc "gptel menu" "M-g" #'gptel-menu
+        :leader
+        (:prefix ("t" . "toggle")
+         :desc "gptel backend" "b" #'my/gptel-switch-backend
+         :desc "list backends" "B" #'my/gptel-list-backends))
 
 ;;; Writing Critique System
 ;; Defer loading until gptel is available and ensure robustness
@@ -143,6 +201,8 @@
          :desc "critique general" "g" #'my/gptel-critique-general
          :desc "critique style" "s" #'my/gptel-critique-style
          :desc "critique clarity" "C" #'my/gptel-critique-clarity)))
+
+) ; Close (after! gptel) block
 
 (provide 'my-gptel-config)
 
