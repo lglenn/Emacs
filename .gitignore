@@ -4,6 +4,7 @@
 tmp/
 .dir-locals.el
 .vscode
+.claude
 
 # Emacs secrets - never commit API keys
 doom/secrets.el
