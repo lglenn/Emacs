@@ -3,10 +3,12 @@
 ;; This is a sample secrets file. To use it:
 ;; 1. Copy this file to "secrets.el"
 ;; 2. Replace the placeholder values with your actual API keys
-;; 3. The secrets.el file is automatically ignored by git for security
+;; 3. Set secure permissions: chmod 600 secrets.el
+;; 4. The secrets.el file is automatically ignored by git for security
 
 ;; IMPORTANT: Never commit secrets.el to version control!
 ;; The makefile will copy secrets.el to ~/.config/doom/ if it exists.
+;; Emacs will refuse to load secrets.el unless it has 600 permissions.
 
 ;; Anthropic Claude API Key
 ;; Get your key from: https://console.anthropic.com/

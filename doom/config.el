@@ -160,7 +160,14 @@
 (setq dictionary-server "dict.org")
 
 ;;; Load private secrets (API keys, etc.)
-(load! "secrets" nil t)  ; Load secrets.el if it exists, don't error if missing
+;; Check that secrets.el has secure permissions (600) before loading
+(let ((secrets-file (expand-file-name "secrets.el" doom-user-dir)))
+  (when (file-exists-p secrets-file)
+    (let ((perms (file-modes secrets-file)))
+      (unless (= (logand perms #o077) 0)  ; Check that group/other have no permissions
+        (error "SECURITY: %s must have permissions 600 (readable only by owner). Run: chmod 600 %s"
+               secrets-file secrets-file))))
+  (load! "secrets" nil t))  ; Load secrets.el if it exists, don't error if missing
 
 ;;; LLM Configuration with gptel
 (use-package! gptel
