@@ -128,6 +128,7 @@
          (gtd-tasks-file (concat gtd-directory tasks))
          (time-tracking-file (concat gtd-directory time-tracking))
          (incidents-file time-tracking-file)
+         (coe-file time-tracking-file)
          (glossary-file (concat work-directory glossary))
          (coach-file (concat personal-directory coach))
          (meeting-notes-file (concat work-directory "MeetingNotes/meetings.org"))
@@ -250,6 +251,10 @@
                                    (file+headline ,meeting-notes-file "Meetings")
                                    "* 1:1: %^{Description}\n** Date: %^U\n** Agenda\n   - %? \n** Notes\n   -  \n** To-Dos\n"
                                    :empty-lines 1)
+
+                                  ("O" "COE (O for OE. Or Oops.)" entry
+                                   (file+headline ,coe-file "COE's")
+                                   (file ,(template-file "coe.org")) :empty-lines 1)
 
                                   ("p" "Todo [projects]" entry
                                    (file+headline ,gtd-tasks-file "Projects")

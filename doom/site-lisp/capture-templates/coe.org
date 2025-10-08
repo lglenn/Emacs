@@ -1,0 +1,40 @@
+
+* COE: %^{Incident}
+:PROPERTIES:
+:system: %^{System}
+:date: %^{Date}u
+:severity: %^{Severity (P3/2/1)}
+:END:
+
+** COE Summary
+
+*** What Happened
+
+*** Why it Happened
+
+*** Mitigating Actions
+
+*** Action Items
+
+** System Architecture
+
+** Event Timeline
+
+** Functional Metrics and Symptoms
+
+** Customer, Seller, Associate, Developer Impact Metrics
+
+** Symptoms, Problems, Root Causes, and Action Items
+
+** Open Issues
+
+** Debates / Disagreements
+
+** Action Items List
+
+|---------+----------+------------|
+| Summary | Assignee | System to  |
+|         |          | Be Changed |
+|---------+----------+------------|
+|         |          |            |
+|---------+----------+------------|
