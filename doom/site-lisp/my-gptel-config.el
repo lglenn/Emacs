@@ -30,7 +30,7 @@
     (let ((claude-backend (gptel-make-anthropic "Claude"
                             :key anthropic-api-key
                             :stream t
-                            :models '("claude-3-5-sonnet-20241022" "claude-3-5-haiku-20241022" "claude-3-opus-20240229"))))
+                            :models '("claude-3-5-sonnet-20241022" "claude-3-5-haiku-20241022" "claude-3-opus-20240229" "claude-sonnet-4-20250514" "claude-sonnet-4-5-20250929"))))
       (add-to-list 'my/gptel-backends `("Claude" . ,claude-backend))))
 
   ;; Local Ollama Configuration
