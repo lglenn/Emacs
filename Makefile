@@ -10,7 +10,6 @@ ORG_DIR=$(HOME)/Org
 CAPTURE_TEMPLATE_DIR=$(ORG_DIR)/capture-templates/
 CAPTURE_TEMPLATE_SOURCES=daily_summary.org staff_meeting.org staff_meeting_as_attendee.org incident.org todo.org draft.org personal_draft.org interview.org bookmark.org meeting.org coe.org
 CAPTURE_TEMPLATES=$(addprefix $(CAPTURE_TEMPLATE_DIR), $(CAPTURE_TEMPLATE_SOURCES))
-LAUNCHD_FILE=$(HOME)/Library/LaunchAgents/gnu.emacs.daemon.plist
 
 all: sync vale daemon
 
@@ -25,23 +24,6 @@ ${CAPTURE_TEMPLATE_DIR}%: doom/site-lisp/capture-templates/%
 ${TARGET_DIR}%.el: doom/%.el
 	mkdir -p $(dir $@)
 	cp $< $@
-
-${LAUNCHD_FILE}: daemon/gnu.emacs.daemon.plist
-	cp $< $@
-	@echo "Updated emacs daemon config file -- restart with make restart for changes to take effect."
-
-daemon: $(LAUNCHD_FILE)
-
-restart:
-	@set -eu; \
-	if launchctl print gui/$$UID/gnu.emacs.daemon >/dev/null 2>&1; then \
-	  echo "Restarting Emacs daemon…"; \
-	  launchctl kickstart -k gui/$$UID/gnu.emacs.daemon || echo "(ignored) kickstart non-zero"; \
-	else \
-	  echo "Daemon not loaded; bootstrapping…"; \
-	  launchctl bootstrap gui/$$UID $$HOME/Library/LaunchAgents/gnu.emacs.daemon.plist \
-	    || echo "(ignored) bootstrap non-zero"; \
-	fi
 
 touch:
 	touch $(SOURCES) $(CAPTURE_TEMPLATE_SOURCES)
