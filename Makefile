@@ -4,7 +4,7 @@ FILES=init.el config.el packages.el site-lisp/my-org-config.el site-lisp/my-roam
 SOURCES=$(addprefix doom/,$(FILES))
 TARGETS=$(addprefix $(TARGET_DIR),$(FILES))
 VALE_STYLE_DIR=$(HOME)/.vale-styles/
-VALE_STYLE_SOURCES=
+VALE_STYLE_SOURCES=config Microsoft/Microsoft proselint/proselint write-good/write-good readability/Readability
 VALE_STYLES=$(addprefix $(VALE_STYLE_DIR),$(VALE_STYLE_SOURCES))
 ORG_DIR=$(HOME)/Org
 CAPTURE_TEMPLATE_DIR=$(ORG_DIR)/capture-templates/
@@ -14,8 +14,8 @@ CAPTURE_TEMPLATES=$(addprefix $(CAPTURE_TEMPLATE_DIR), $(CAPTURE_TEMPLATE_SOURCE
 all: sync vale daemon
 
 ${VALE_STYLE_DIR}%: Vale/Styles/%
-	mkdir -p $@
-	cp -r $< $@
+	mkdir -p $(dir $@)
+	cp -r $< $(dir $@)
 
 ${CAPTURE_TEMPLATE_DIR}%: doom/site-lisp/capture-templates/%
 	mkdir -p ${CAPTURE_TEMPLATE_DIR}
