@@ -108,6 +108,14 @@ This is a convenience function that returns only the week number as an integer."
 This is a convenience function that returns only the fiscal year as an integer."
   (cdr (walmart-week date)))
 
+(defun walmart-week-show-current ()
+  "Display the current Walmart week with 'It's' prefix."
+  (interactive)
+  (let* ((result (walmart-week))
+         (week (car result))
+         (fy (cdr result)))
+    (message "It's Walmart Week %d, FY%d" week fy)))
+
 (defun walmart-week-for-date ()
   "Prompt for a date and display the Walmart week for that date.
 Date should be entered in yyyy-mm-dd format."
