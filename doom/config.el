@@ -171,6 +171,10 @@
 
 ;;; GPTel LLM and Writing Critique
 (load! "site-lisp/my-gptel-config")
+
+;;; Walmart fiscal calendar utilities
+(load! "site-lisp/my-walmart-utils")
+
 ;; Select a different theme
 ;;(setq doom-theme 'doom-solarized-light)
 
