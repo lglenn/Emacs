@@ -179,7 +179,8 @@
 ;; Job menu under SPC j
 (map! :leader
       (:prefix ("j" . "job")
-       :desc "Show Walmart week" "w" #'walmart-week))
+       :desc "Show Walmart week" "w" #'walmart-week
+       :desc "Show Walmart week for date" "W" #'walmart-week-for-date))
 
 ;; Select a different theme
 ;;(setq doom-theme 'doom-solarized-light)

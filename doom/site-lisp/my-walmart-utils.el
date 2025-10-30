@@ -108,5 +108,20 @@ This is a convenience function that returns only the week number as an integer."
 This is a convenience function that returns only the fiscal year as an integer."
   (cdr (walmart-week date)))
 
+(defun walmart-week-for-date ()
+  "Prompt for a date and display the Walmart week for that date.
+Date should be entered in yyyy-mm-dd format."
+  (interactive)
+  (let* ((date-str (read-string "Enter date (yyyy-mm-dd): "))
+         (date-parts (split-string date-str "-"))
+         (year (string-to-number (nth 0 date-parts)))
+         (month (string-to-number (nth 1 date-parts)))
+         (day (string-to-number (nth 2 date-parts)))
+         (date-list (list year month day))
+         (result (walmart-week date-list))
+         (week (car result))
+         (fy (cdr result)))
+    (message "Date %s: Walmart Week %d, FY%d" date-str week fy)))
+
 (provide 'my-walmart-utils)
 ;;; my-walmart-utils.el ends here
