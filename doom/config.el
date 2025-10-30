@@ -95,7 +95,10 @@
 ;; Put a clock in the modeline
 (display-time)
 ;; Locations for world clock
-(setq display-time-world-list '(("America/New_York" "New York")
+(setq display-time-world-list '(("America/Los_Angeles" "Sunnyvale")
+                                ("America/Chicago" "Bentonville")
+                                ("America/New_York" "New York")
+                                ("America/Sao_Paulo" "Sao Paulo")
                                 ("UTC/UTC" "UTC")
                                 ("Asia/Calcutta" "Bangalore")))
 
