@@ -1,0 +1,271 @@
+#+TITLE: Walmart Week Calculator
+#+AUTHOR: Walmart Fiscal Calendar Utilities
+#+DATE: 2025
+
+* Overview
+
+This package provides utilities for working with Walmart's fiscal calendar system. Walmart uses a custom week-based fiscal calendar that differs from standard calendar weeks.
+
+* Walmart Fiscal Calendar Rules
+
+** Week Definition
+- A Walmart week runs from *Saturday to Friday* (7 days)
+- Week 1 of each fiscal year starts on the *Saturday on or before February 1st*
+- If February 1st falls on a Saturday, that is the start of Week 1
+- If February 1st falls on any other day, Week 1 starts on the Saturday immediately before it
+
+** Fiscal Year Naming
+- Fiscal years are named after the *calendar year in which they end*
+- Example: FY2025 starts around late January/early February 2024 and ends in January 2025
+- Most fiscal years have 52 weeks, but occasionally have 53 weeks
+
+** Examples
+- *2024*: February 1 was a Thursday → Week 1 started on Saturday, January 27, 2024 (FY2025)
+- *2025*: February 1 is a Saturday → Week 1 starts on Saturday, February 1, 2025 (FY2026)
+- *2026*: February 1 is a Sunday → Week 1 starts on Saturday, January 31, 2026 (FY2027)
+
+* Installation
+
+Add the site-lisp directory to your load path:
+
+#+begin_src emacs-lisp
+(add-to-list 'load-path "~/path/to/doom/site-lisp")
+(require 'my-walmart-utils)
+#+end_src
+
+* API Documentation
+
+** Primary Function: ~walmart-week~
+
+#+begin_src emacs-lisp
+(walmart-week &optional date)
+#+end_src
+
+*** Description
+Returns the Walmart week number and fiscal year for a given date.
+
+*** Parameters
+- ~date~ (optional): A list =(YEAR MONTH DAY)=
+  - If omitted, uses the current date
+  - Example: ~'(2024 6 15)~ for June 15, 2024
+
+*** Returns
+A cons cell ~(WEEK-NUMBER . FISCAL-YEAR)~
+- ~WEEK-NUMBER~: Integer from 1 to 53
+- ~FISCAL-YEAR~: Integer representing the fiscal year (e.g., 2025)
+
+*** Examples
+
+#+begin_src emacs-lisp
+;; Get current Walmart week
+(walmart-week)
+;; => (21 . 2025)
+
+;; Get week for specific date
+(walmart-week '(2024 6 15))
+;; => (21 . 2025)
+
+;; Get week for Feb 1, 2025 (Saturday - Week 1 start)
+(walmart-week '(2025 2 1))
+;; => (1 . 2026)
+#+end_src
+
+** Convenience Functions
+
+*** ~walmart-week-number~
+
+#+begin_src emacs-lisp
+(walmart-week-number &optional date)
+#+end_src
+
+Returns only the week number as an integer.
+
+#+begin_src emacs-lisp
+(walmart-week-number '(2024 6 15))
+;; => 21
+#+end_src
+
+*** ~walmart-fiscal-year~
+
+#+begin_src emacs-lisp
+(walmart-fiscal-year &optional date)
+#+end_src
+
+Returns only the fiscal year as an integer.
+
+#+begin_src emacs-lisp
+(walmart-fiscal-year '(2024 6 15))
+;; => 2025
+#+end_src
+
+** Interactive Commands
+
+*** ~walmart-week~
+
+When called interactively (with ~M-x walmart-week~), displays the current Walmart week in the minibuffer:
+#+begin_example
+Walmart Week 21, FY2025
+#+end_example
+
+*** ~walmart-week-show-current~
+
+Displays the current week with "It's" prefix:
+#+begin_example
+It's Walmart Week 21, FY2025
+#+end_example
+
+*** ~walmart-week-for-date~
+
+Prompts for a date in ~yyyy-mm-dd~ format and displays the Walmart week for that date.
+
+#+begin_example
+M-x walmart-week-for-date RET
+Enter date (yyyy-mm-dd): 2024-06-15 RET
+Date 2024-06-15: Walmart Week 21, FY2025
+#+end_example
+
+* Implementation Details
+
+** Date-Based Approach
+The implementation uses a simplified date-based approach:
+- Works with day numbers (integers) rather than time values
+- Uses Emacs' ~time-to-days~ function for date arithmetic
+- Avoids floating-point arithmetic and DST edge cases
+- Daylight Saving Time transitions are not an issue since:
+  - DST starts and ends on Sundays
+  - Walmart weeks start and end on Saturdays
+
+** Key Algorithm
+1. Convert target date to a day number
+2. Find the Saturday on or before February 1st for candidate years
+3. Select the most recent Week 1 start that precedes the target date
+4. Calculate week number by dividing days elapsed by 7
+
+* Testing
+
+** Test Files
+- ~my-walmart-utils-test.el~ - Unit tests
+- ~walmart-week-test-data.txt~ - 1,211 test dates covering FY2025-FY2027
+
+** Running Tests from Command Line
+
+#+begin_src bash
+# From the Emacs directory
+cd /Users/l0g00ls/Emacs
+
+# Run all tests
+emacs --batch -l ert \
+  -l doom/site-lisp/my-walmart-utils.el \
+  -l doom/site-lisp/my-walmart-utils-test.el \
+  -f ert-run-tests-batch-and-exit
+#+end_src
+
+#+RESULTS:
+
+Expected output:
+#+begin_example
+Running 9 tests (2025-10-30 16:27:57-0400, selector 't')
+   passed  1/9  walmart-fiscal-year-test
+   passed  2/9  walmart-week-number-test
+   passed  3/9  walmart-week-test-basic
+   passed  4/9  walmart-week-test-consistency
+Tested 1211 dates, 0 failures
+   passed  5/9  walmart-week-test-data-file
+   passed  6/9  walmart-week-test-fiscal-year-naming
+   passed  7/9  walmart-week-test-saturday-transitions
+   passed  8/9  walmart-week-test-week-1-boundaries
+   passed  9/9  walmart-week-test-year-span
+
+Ran 9 tests, 9 results as expected, 0 unexpected
+#+end_example
+
+** Running Tests Interactively
+
+*** Load and Run All Tests
+#+begin_src emacs-lisp
+M-x load-file RET doom/site-lisp/my-walmart-utils.el RET
+M-x load-file RET doom/site-lisp/my-walmart-utils-test.el RET
+M-x walmart-week-run-tests RET
+#+end_src
+
+*** Run Specific Test
+#+begin_src emacs-lisp
+M-x ert RET walmart-week-test-data-file RET
+#+end_src
+
+*** Run Tests Matching Pattern
+#+begin_src emacs-lisp
+M-x ert RET ^walmart-week- RET
+#+end_src
+
+** Test Coverage
+The test suite includes:
+- ~walmart-week-test-basic~ - Basic functionality
+- ~walmart-week-test-week-1-boundaries~ - Week 1 start date validation
+- ~walmart-week-test-year-span~ - Year transition handling
+- ~walmart-week-test-consistency~ - Consecutive days in same week
+- ~walmart-week-test-saturday-transitions~ - Week boundaries on Saturdays
+- ~walmart-week-test-fiscal-year-naming~ - FY naming convention
+- ~walmart-week-test-data-file~ - Data-driven test with 1,211 dates
+- ~walmart-week-number-test~ - Convenience function
+- ~walmart-fiscal-year-test~ - Convenience function
+
+* File Structure
+
+#+begin_example
+doom/site-lisp/
+├── README.org                      # This file
+├── my-walmart-utils.el             # Main implementation
+├── my-walmart-utils-test.el        # Test suite
+└── walmart-week-test-data.txt      # Test data (1,211 dates)
+#+end_example
+
+* Use Cases
+
+** Display Current Week in Modeline
+#+begin_src emacs-lisp
+(defun my-walmart-week-modeline ()
+  "Return Walmart week string for modeline."
+  (let* ((result (walmart-week))
+         (week (car result))
+         (fy (cdr result)))
+    (format "WW%d" week)))
+#+end_src
+
+** Calculate Week for Date Range
+#+begin_src emacs-lisp
+(defun walmart-weeks-in-range (start-date end-date)
+  "Get all unique Walmart weeks between START-DATE and END-DATE."
+  (let ((weeks '())
+        (current-date start-date))
+    (while (not (time-less-p end-date current-date))
+      (let ((week (walmart-week current-date)))
+        (unless (member week weeks)
+          (push week weeks)))
+      ;; Move to next day
+      (setq current-date 
+            (time-add current-date (days-to-time 1))))
+    (nreverse weeks)))
+#+end_src
+
+** Org-Mode Integration
+#+begin_src emacs-lisp
+(defun org-insert-walmart-week ()
+  "Insert current Walmart week as an org heading."
+  (interactive)
+  (let* ((result (walmart-week))
+         (week (car result))
+         (fy (cdr result)))
+    (insert (format "* Week %d (FY%d)\n" week fy))))
+#+end_src
+
+* License
+
+This package is provided as-is for use with Walmart fiscal calendar calculations.
+
+* Changelog
+
+** 2025-10-30
+- Initial implementation with date-based approach
+- Added comprehensive test suite with 1,211 test dates
+- Created documentation

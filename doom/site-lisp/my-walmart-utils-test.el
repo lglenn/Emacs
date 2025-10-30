@@ -21,16 +21,19 @@
 
 (ert-deftest walmart-week-test-week-1-boundaries ()
   "Test Week 1 calculation for various years."
-  ;; 2024: Feb 1 is Thursday, so closest Saturday is Feb 3 (2 days after)
-  ;; or Jan 27 (5 days before). Feb 3 is closer.
-  (let* ((feb-3-2024 (walmart-week '(2024 2 3)))
-         (feb-2-2024 (walmart-week '(2024 2 2))))
-    ;; Feb 3, 2024 should be Week 1 of FY2025 (since FY ends in 2025)
-    (should (= (car feb-3-2024) 1))
-    (should (= (cdr feb-3-2024) 2025))
-    ;; Feb 2 should be the last week of FY2024
-    (should (> (car feb-2-2024) 50))
-    (should (= (cdr feb-2-2024) 2024))))
+  ;; 2024: Feb 1 is Thursday, so Week 1 starts on Saturday Jan 27
+  (let* ((jan-27-2024 (walmart-week '(2024 1 27)))  ; Saturday - Week 1 start
+         (jan-26-2024 (walmart-week '(2024 1 26)))  ; Friday - last week of FY2024
+         (feb-3-2024 (walmart-week '(2024 2 3))))   ; Saturday - Week 2 start
+    ;; Jan 27, 2024 should be Week 1 of FY2025 (since FY ends in 2025)
+    (should (= (car jan-27-2024) 1))
+    (should (= (cdr jan-27-2024) 2025))
+    ;; Jan 26 should be the last week of FY2024
+    (should (> (car jan-26-2024) 50))
+    (should (= (cdr jan-26-2024) 2024))
+    ;; Feb 3 should be Week 2 of FY2025
+    (should (= (car feb-3-2024) 2))
+    (should (= (cdr feb-3-2024) 2025))))
 
 (ert-deftest walmart-week-test-year-span ()
   "Test weeks that span calendar years."
@@ -79,10 +82,41 @@
   (let ((nov-1-2025 (walmart-week '(2025 11 1))))
     (should (= (car nov-1-2025) 40))
     (should (= (cdr nov-1-2025) 2026)))
-  ;; Feb 3, 2025 (Saturday, Week 1 start) should be Week 1 of FY2026
-  (let ((feb-3-2025 (walmart-week '(2025 2 3))))
-    (should (= (car feb-3-2025) 1))
-    (should (= (cdr feb-3-2025) 2026))))
+  ;; Feb 1, 2025 (Saturday, Week 1 start) should be Week 1 of FY2026
+  (let ((feb-1-2025 (walmart-week '(2025 2 1))))
+    (should (= (car feb-1-2025) 1))
+    (should (= (cdr feb-1-2025) 2026))))
+
+(ert-deftest walmart-week-test-data-file ()
+  "Test walmart-week against comprehensive test data file."
+  (let* ((test-file "doom/site-lisp/walmart-week-test-data.txt")
+         (lines (with-temp-buffer
+                  (insert-file-contents test-file)
+                  (split-string (buffer-string) "\n" t)))
+         (test-count 0)
+         (fail-count 0))
+    (dolist (line lines)
+      ;; Skip blank lines and comments
+      (unless (or (string-match-p "^[[:space:]]*$" line)
+                  (string-match-p "^#" line))
+        (let* ((fields (split-string line "\t"))
+               (year (string-to-number (nth 0 fields)))
+               (month (string-to-number (nth 1 fields)))
+               (day (string-to-number (nth 2 fields)))
+               (expected-week (string-to-number (nth 3 fields)))
+               (expected-fy (string-to-number (nth 4 fields)))
+               (result (walmart-week (list year month day)))
+               (actual-week (car result))
+               (actual-fy (cdr result)))
+          (setq test-count (1+ test-count))
+          (unless (and (= actual-week expected-week)
+                       (= actual-fy expected-fy))
+            (setq fail-count (1+ fail-count))
+            (message "FAIL: %04d-%02d-%02d expected W%d FY%d, got W%d FY%d"
+                     year month day expected-week expected-fy actual-week actual-fy))
+          (should (= actual-week expected-week))
+          (should (= actual-fy expected-fy)))))
+    (message "Tested %d dates, %d failures" test-count fail-count)))
 
 ;; Interactive test function
 (defun walmart-week-run-tests ()
