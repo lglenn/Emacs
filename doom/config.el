@@ -175,6 +175,12 @@
 ;;; Walmart fiscal calendar utilities
 (load! "site-lisp/my-walmart-utils")
 
+;;; Custom keybindings
+;; Job menu under SPC j
+(map! :leader
+      (:prefix ("j" . "job")
+       :desc "Show Walmart week" "w" #'walmart-week))
+
 ;; Select a different theme
 ;;(setq doom-theme 'doom-solarized-light)
 

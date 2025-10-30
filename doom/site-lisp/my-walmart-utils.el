@@ -14,6 +14,7 @@ Returns a list (MONTH DAY YEAR) representing the date."
   (let* ((feb-1 (encode-time 0 0 0 1 2 year))
          (feb-1-dow (string-to-number (format-time-string "%w" feb-1)))
          ;; Days until next Saturday (0=Sunday, 6=Saturday)
+         ;; m.
          (days-to-sat (mod (- 6 feb-1-dow) 7))
          ;; Days since last Saturday
          (days-from-sat (mod (+ feb-1-dow 1) 7)))
