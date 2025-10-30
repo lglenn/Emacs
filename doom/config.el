@@ -106,6 +106,10 @@
 
 (map! "M-+" 'calc)
 (map! "M-=" 'calendar)
+;; Swap the ootb keybindings for dabbrev-expand and abbrev-prefix-mark
+;; It's more comfortable this way.
+(map! "M-'" 'dabbrev-expand)
+(map! "M-/" 'abbrev-prefix-mark)
 
 ;;; Org
 (load! "site-lisp/my-org-config")
