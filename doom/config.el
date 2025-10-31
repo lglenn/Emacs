@@ -187,7 +187,9 @@
 (map! :leader
       (:prefix ("W" . "work")
        :desc "Show Walmart week" "w" #'walmart-week-show-current
-       :desc "Show Walmart week for date" "W" #'walmart-week-for-date))
+       :desc "Show Walmart week for date" "W" #'walmart-week-for-date)
+      (:desc "World clock"
+             "o w" #'world-clock))
 
 ;; Select a different theme
 ;;(setq doom-theme 'doom-solarized-light)
