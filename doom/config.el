@@ -185,7 +185,7 @@
 ;;; Custom keybindings
 ;; Job menu under SPC j
 (map! :leader
-      (:prefix ("j" . "job")
+      (:prefix ("W" . "work")
        :desc "Show Walmart week" "w" #'walmart-week-show-current
        :desc "Show Walmart week for date" "W" #'walmart-week-for-date))
 
