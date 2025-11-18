@@ -199,9 +199,7 @@
         (:prefix ("w" . "write")
          :desc "critique menu" "c" #'my/gptel-writing-critique-menu
          :desc "critique general" "g" #'my/gptel-critique-general
-         :desc "critique style" "s" #'my/gptel-critique-style
          :desc "critique clarity" "C" #'my/gptel-critique-clarity)))
-
 ) ; Close (after! gptel) block
 
 (provide 'my-gptel-config)
