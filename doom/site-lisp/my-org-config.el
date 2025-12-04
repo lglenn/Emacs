@@ -16,10 +16,11 @@
   ;; Need this to display math using org-latex-preview
   (setenv "PATH" (concat latex-bin-dir ":" (getenv "PATH")))
   (add-to-list 'exec-path latex-bin-dir)
-  (setq org-latex-create-formula-image-program 'imagemagick)
+  (setq org-latex-create-formula-image-program 'dvisvgm)
   (setq org-startup-with-latex-preview t)
-  ;; Make LaTeX previews a nice size
+  ;; Make LaTeX previews a nice size with crisp rendering
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.2))
+  (setq org-format-latex-options (plist-put org-format-latex-options :foreground "White"))
 
   ;;; Blinking cursor is nice
   (blink-cursor-mode)
