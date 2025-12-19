@@ -26,6 +26,8 @@
   (blink-cursor-mode)
 
   ;;; Tell org how to open attachments
+  (setq org-file-apps (assoc-delete-all 'directory org-file-apps))
+  (add-to-list 'org-file-apps '(directory . system))
   (add-to-list 'org-file-apps '("\\.docx\\'" . default))
   (add-to-list 'org-file-apps '("\\.xlsx\\'" . default))
   (add-to-list 'org-file-apps '("\\.pptx\\'" . default))
