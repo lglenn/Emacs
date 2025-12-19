@@ -191,6 +191,27 @@
       (:desc "World clock"
              "o w" #'world-clock))
 
+(defun act-on-word-at-point (fn)
+  "Move to the beginning of the word at point, call FN, then restore point.
+FN should be a zero-argument function or lambda."
+  (save-excursion
+    (backward-word)
+    (funcall fn)))
+
+(defun capitalize-word-at-point ()
+  "Uppercase the initial letter of the word containing point."
+  (interactive)
+  (act-on-word-at-point (lambda () (capitalize-word 1))))
+
+(defun downcase-word-at-point ()
+  "Lowercase the initial letter of the word containing point."
+  (interactive)
+  (act-on-word-at-point (lambda () (downcase-word 1))))
+
+(map! "M-U" #'capitalize-word-at-point)
+(map! "M-L" #'downcase-word-at-point)
+
+;;
 ;; Select a different theme
 ;;(setq doom-theme 'doom-solarized-light)
 
