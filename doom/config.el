@@ -121,6 +121,10 @@
 (use-package! websocket
     :after org-roam)
 
+;; Calc
+(after! calc
+  (setq calc-group-digits t))
+
 (use-package! org-roam-ui
     :after org-roam ;; or :after org
 ;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
