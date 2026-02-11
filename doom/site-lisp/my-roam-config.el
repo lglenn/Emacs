@@ -42,7 +42,8 @@
 
   (setq org-roam-capture-templates '(("d" "default" plain
                                       "%?\n\n_References_"
-                                      :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: ${Tags}\n\n")
+                                      :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                                                         ":PROPERTIES:\n:Sensitivity: %^{Sensitivity|low|sensitive|high|unclassified}\n:Domain: %^{Domain|work|personal|unclassified}\n:END:\n#+title: ${title}\n#+filetags: %^{Tags}\n\n")
                                       :unnarrowed t)
                                      ("g" "glossary" plain
                                       "%?\n\n_References_"
