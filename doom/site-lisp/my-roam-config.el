@@ -50,10 +50,10 @@
                                       :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: glossary ${Tags}\n\n")
                                       :unnarrowed t))))
 
-(defun my/set-property (prop opts)
-  "Set a property PROP from a list of choices OPTS."
-  (org-set-property prop
-                    (completing-read (concat prop ": ") opts)))
+(defun my/set-property (property values)
+  "Set the property PROPERTY to one of VALUES."
+  (org-set-property property
+                    (completing-read (concat property ": ") values)))
 
 (defun my/set-sensitivity ()
   "Set the :Sensitivity: property from a list of choices."
@@ -61,7 +61,7 @@
   (my/set-property "Sensitivity" '("low" "sensitive" "high" "unclassified")))
 
 (defun my/set-domain ()
-  "Set the :DOmain: property from a list of choices."
+  "Set the :Domain: property from a list of choices."
   (interactive)
   (my/set-property "Domain" '("work" "personal" "unclassified")))
 
