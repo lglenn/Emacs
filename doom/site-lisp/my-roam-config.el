@@ -51,8 +51,7 @@
                                       :unnarrowed t))))
 
 (defun my/set-property (prop opts)
-  "Set a property prop from a list of choices opts."
-  (interactive)
+  "Set a property PROP from a list of choices OPTS."
   (org-set-property prop
                     (completing-read (concat prop ": ") opts)))
 
