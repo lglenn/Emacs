@@ -300,6 +300,7 @@
                                            (cons someday '(:level . 1))
                                            (cons ideas '(:level . 1))
                                            (cons tickler '(:maxlevel . 2))
+                                           (cons projects '(:maxlevel . 2))
                                            (cons time-tracking '(:maxlevel . 4))
                                            (cons inbox '(:maxlevel . 2))))
 	        (prepend-directory-if-string
