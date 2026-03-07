@@ -121,6 +121,7 @@
          (someday "someday.org")
          (ideas "ideas.org")
          (tasks "gtd.org")
+         (projects "projects.org")
          (glossary "Glossary/glossary.org")
          (coach "Coach/coach.org")
          (time-tracking "time-tracking.org")
@@ -129,6 +130,7 @@
          (gtd-someday-file (concat gtd-directory someday))
          (gtd-ideas-file (concat gtd-directory ideas))
          (gtd-tasks-file (concat gtd-directory tasks))
+         (gtd-projects-file (concat gtd-directory projects))
          (time-tracking-file (concat gtd-directory time-tracking))
          (incidents-file time-tracking-file)
          (coe-file time-tracking-file)
@@ -147,7 +149,7 @@
          (food-diary-file (concat personal-directory "Diet/food_diary.org")))
     (setq org-journal-dir (concat work-directory "Journal"))
     (setq org-journal-file-type 'weekly)
-    (setq org-agenda-files (list gtd-tasks-file gtd-tickler-file))
+    (setq org-agenda-files (list gtd-projects-file gtd-tasks-file gtd-tickler-file))
 
     ;; Call this from a capture template using the %(EXP) expansion to get a timestamp that
     ;; always reflects the current time.
@@ -260,11 +262,11 @@
                                    (file ,(template-file "coe.org")) :empty-lines 1)
 
                                   ("p" "Todo [projects]" entry
-                                   (file+headline ,gtd-tasks-file "Projects")
+                                   (file+headline ,gtd-projects-file "Projects")
                                    "* %^{Brief Description} [/] %^g\n:PROPERTIES:\n:created: %U\n:END:\n%?\n")
 
                                   ("P" "Todo [serial projects]" entry
-                                   (file+headline ,gtd-tasks-file "Serial Projects")
+                                   (file+headline ,gtd-projects-file "Serial Projects")
                                    "* %^{Brief Description} [%] %^g\n:PROPERTIES:\n:created: %U\n:END:\n** TODO %?\n")
 
                                   ("s" "My Staff Meeting" entry
