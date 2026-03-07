@@ -22,7 +22,10 @@
     (let ((openai-backend (gptel-make-openai "OpenAI"
                             :key openai-api-key
                             :stream t
-                            :models '("gpt-4o" "gpt-4o-mini" "gpt-4-turbo" "gpt-3.5-turbo"))))
+                            :models '("gpt-4o"
+                                      "gpt-4o-mini"
+                                      "gpt-4-turbo"
+                                      "gpt-3.5-turbo"))))
       (add-to-list 'my/gptel-backends `("OpenAI" . ,openai-backend))))
 
   ;; Anthropic Claude Configuration
@@ -30,7 +33,12 @@
     (let ((claude-backend (gptel-make-anthropic "Claude"
                             :key anthropic-api-key
                             :stream t
-                            :models '("claude-3-5-sonnet-20241022" "claude-3-5-haiku-20241022" "claude-3-opus-20240229" "claude-sonnet-4-20250514" "claude-sonnet-4-5-20250929"))))
+                            :models '("claude-opus-4-6"
+                                      "claude-sonnet-4-6"
+                                      "claude-haiku-4-5-20251001"
+                                      "claude-3-5-sonnet-20241022"
+                                      "claude-3-5-haiku-20241022"
+                                      "claude-3-opus-20240229"))))
       (add-to-list 'my/gptel-backends `("Claude" . ,claude-backend))))
 
   ;; Local Ollama Configuration
@@ -48,7 +56,7 @@
     (setq gptel-model 'mistral))
    ((and (boundp 'anthropic-api-key) (assoc "Claude" my/gptel-backends))
     (setq gptel-backend (cdr (assoc "Claude" my/gptel-backends)))
-    (setq gptel-model 'claude-3-5-sonnet-20241022))
+    (setq gptel-model 'claude-sonnet-4-6))
    ((and (boundp 'openai-api-key) (assoc "OpenAI" my/gptel-backends))
     (setq gptel-backend (cdr (assoc "OpenAI" my/gptel-backends)))
     (setq gptel-model 'gpt-4o))
@@ -91,7 +99,7 @@
         ;; Set appropriate default model for each backend
         (cond
          ((string= choice "Claude")
-          (setq gptel-model 'claude-3-5-sonnet-20241022))
+          (setq gptel-model 'claude-sonnet-4-6))
          ((string= choice "OpenAI")
           (setq gptel-model 'gpt-4o))
          ((string= choice "Ollama")
