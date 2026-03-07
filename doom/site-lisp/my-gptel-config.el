@@ -46,14 +46,17 @@
     (let ((ollama-backend (gptel-make-ollama "Ollama"
                             :host "localhost:11434"
                             :stream t
-                            :models '("mistral" "llama3.2" "codellama" "phi3"))))
+                            :models '("mistral"
+                                      "llama3.1"
+                                      "llama3.2"
+                                      "qwen2.5-coder"))))
       (add-to-list 'my/gptel-backends `("Ollama" . ,ollama-backend))))
 
   ;; Set default backend (prefer Ollama > Claude > OpenAI)
   (cond
    ((assoc "Ollama" my/gptel-backends)
     (setq gptel-backend (cdr (assoc "Ollama" my/gptel-backends)))
-    (setq gptel-model 'mistral))
+    (setq gptel-model 'llama3.1))
    ((and (boundp 'anthropic-api-key) (assoc "Claude" my/gptel-backends))
     (setq gptel-backend (cdr (assoc "Claude" my/gptel-backends)))
     (setq gptel-model 'claude-sonnet-4-6))
