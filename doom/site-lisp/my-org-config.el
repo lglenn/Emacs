@@ -94,6 +94,7 @@
   (setq org-todo-keywords
         '((sequence "TODO(t!)"
                     "WAITING(w@/!)"
+                    "BLOCKED(b@/!)"
                     "DEPENDENCY(d@/!)"
                     "DELEGATED(l@/!)"
                     "|"
