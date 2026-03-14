@@ -10,6 +10,7 @@ ORG_DIR=$(HOME)/Org
 CAPTURE_TEMPLATE_DIR=$(ORG_DIR)/capture-templates/
 CAPTURE_TEMPLATE_SOURCES=daily_summary.org staff_meeting.org staff_meeting_as_attendee.org incident.org todo.org draft.org personal_draft.org interview.org bookmark.org meeting.org coe.org
 CAPTURE_TEMPLATES=$(addprefix $(CAPTURE_TEMPLATE_DIR), $(CAPTURE_TEMPLATE_SOURCES))
+MODULES_WITH_CONFIG_FILES=gptel org
 
 all: sync vale daemon
 
@@ -28,10 +29,10 @@ ${TARGET_DIR}%.el: doom/%.el
 touch:
 	touch $(SOURCES) $(CAPTURE_TEMPLATE_SOURCES)
 
-files: $(TARGETS) $(CAPTURE_TEMPLATES) $(TARGET_DIR)/local-org-config.el
+files: $(TARGETS) $(CAPTURE_TEMPLATES) $(TARGET_DIR)/local-org-config.el $(TARGET_DIR)/local-gptel-config.el
 
-$(TARGET_DIR)/local-org-config.el:
-	if [ -e $(TARGET_DIR)/local-org-config.el ]; then echo "foo"; else cp doom/local-org-config.sample.el $(TARGET_DIR)/local-org-config.el; fi
+$(TARGET_DIR)/local-%-config.el: doom/local-%-config.sample.el
+	cp -n $< $@ || true
 
 sync: files
 	$(EMACSD)/bin/doom sync

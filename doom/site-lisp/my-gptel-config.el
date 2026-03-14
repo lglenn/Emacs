@@ -10,6 +10,10 @@
 ;;; LLM Configuration with gptel
 (use-package! gptel
   :config
+
+  ;; Load local config for models, etc.
+  (load! "local-gptel-config" doom-private-dir)
+
   ;; Set default model parameters
   (setq gptel-default-mode 'org-mode)
 
@@ -22,10 +26,7 @@
     (let ((openai-backend (gptel-make-openai "OpenAI"
                             :key openai-api-key
                             :stream t
-                            :models '("gpt-4o"
-                                      "gpt-4o-mini"
-                                      "gpt-4-turbo"
-                                      "gpt-3.5-turbo"))))
+                            :models my/openai-models)))
       (add-to-list 'my/gptel-backends `("OpenAI" . ,openai-backend))))
 
   ;; Anthropic Claude Configuration
@@ -33,12 +34,7 @@
     (let ((claude-backend (gptel-make-anthropic "Claude"
                             :key anthropic-api-key
                             :stream t
-                            :models '("claude-opus-4-6"
-                                      "claude-sonnet-4-6"
-                                      "claude-haiku-4-5-20251001"
-                                      "claude-3-5-sonnet-20241022"
-                                      "claude-3-5-haiku-20241022"
-                                      "claude-3-opus-20240229"))))
+                            :models my/anthropic-models)))
       (add-to-list 'my/gptel-backends `("Claude" . ,claude-backend))))
 
   ;; Local Ollama Configuration
@@ -46,10 +42,7 @@
     (let ((ollama-backend (gptel-make-ollama "Ollama"
                             :host "localhost:11434"
                             :stream t
-                            :models '("mistral"
-                                      "llama3.1"
-                                      "llama3.2"
-                                      "qwen2.5-coder"))))
+                            :models my/ollama-models)))
       (add-to-list 'my/gptel-backends `("Ollama" . ,ollama-backend))))
 
   ;; Set default backend (prefer Ollama > Claude > OpenAI)
