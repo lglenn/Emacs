@@ -1,5 +1,9 @@
-;;; Org-roam
+;;; my-roam-config.el --- Org-roam configuration -*- lexical-binding: t; no-byte-compile: t; -*-
 
+;;; Commentary:
+;; Org-roam configuration and node property helpers.
+
+;;; Code:
 
 (use-package! org-roam
    :init
@@ -73,3 +77,4 @@
       :desc "Set sensitivity" "s" #'my/set-sensitivity)
 
 (provide 'my-roam-config)
+;;; my-roam-config.el ends here

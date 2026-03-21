@@ -1,8 +1,8 @@
-;;; my-org-config --- Tweaks for org-mode
+;;; my-org-config.el --- Tweaks for org-mode -*- lexical-binding: t; no-byte-compile: t; -*-
 
 ;;; Commentary:
-;;; My org-mode custimizations
-;;;
+;; My org-mode customizations.
+
 ;;; Code:
 
 (after! org
@@ -325,4 +325,4 @@
   (setq org-crypt-key nil))
 
 (provide 'my-org-config)
-;;; my-org.config.el ends here
+;;; my-org-config.el ends here
