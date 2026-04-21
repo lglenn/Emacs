@@ -62,7 +62,7 @@
 (defun my/set-sensitivity ()
   "Set the :Sensitivity: property from a list of choices."
   (interactive)
-  (my/set-property "Sensitivity" '("low" "sensitive" "high" "unclassified")))
+  (my/set-property "Sensitivity" '("low" "public" "sensitive" "high" "unclassified")))
 
 (defun my/set-domain ()
   "Set the :Domain: property from a list of choices."
