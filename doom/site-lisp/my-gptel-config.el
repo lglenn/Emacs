@@ -49,13 +49,13 @@
   (cond
    ((assoc "Ollama" my/gptel-backends)
     (setq gptel-backend (cdr (assoc "Ollama" my/gptel-backends)))
-    (setq gptel-model 'llama3.1))
+    (setq gptel-model (car my/gptel-backends)))
    ((and (boundp 'anthropic-api-key) (assoc "Claude" my/gptel-backends))
     (setq gptel-backend (cdr (assoc "Claude" my/gptel-backends)))
-    (setq gptel-model 'claude-sonnet-4-6))
+    (setq gptel-model (car my/gptel-backends)))
    ((and (boundp 'openai-api-key) (assoc "OpenAI" my/gptel-backends))
     (setq gptel-backend (cdr (assoc "OpenAI" my/gptel-backends)))
-    (setq gptel-model 'gpt-4o))
+    (setq gptel-model (car my/openai-models)))
    (t
     (message "No gptel backends available. Please configure API keys or install Ollama.")))
 
